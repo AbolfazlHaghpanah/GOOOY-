@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.haghpanah.goooy.ui.answer.AnswerScreen
+import com.haghpanah.goooy.ui.intention.IntentionScreen
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import com.haghpanah.goooy.ui.theme.GOOOYTheme
 
@@ -23,10 +25,10 @@ class MainActivity : ComponentActivity() {
                     startDestination = GOOOYScreens.Intention
                 ) {
                     composable<GOOOYScreens.Intention> {
-
+                        IntentionScreen(navController)
                     }
                     composable<GOOOYScreens.Answer> {
-
+                        AnswerScreen(navController)
                     }
                     composable<GOOOYScreens.Setting> {
 

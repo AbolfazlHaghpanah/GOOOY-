@@ -1,3 +1,33 @@
 <resources>
+    <!-- Positive -->
+    <string name="ans_yes_absolutely">Yes, absolutely!</string>
+    <string name="ans_for_sure_bro">For sure bro</string>
+    <string name="ans_its_happening">100% it’s happening</string>
+    <string name="ans_no_doubts">No doubts</string>
+    <string name="ans_guaranteed">Guaranteed!</string>
+
+    <!-- Negative -->
+    <string name="ans_no_chance">No chance</string>
+    <string name="ans_forget_it">Forget it</string>
+    <string name="ans_hell_no">Hell no</string>
+    <string name="ans_never_ever">Never ever</string>
+    <string name="ans_not_today">Not today</string>
+
+    <!-- Neutral -->
+    <string name="ans_maybe">Maybe…</string>
+    <string name="ans_ask_again_later">Ask again later</string>
+    <string name="ans_unclear">Unclear</string>
+    <string name="ans_fifty_fifty">50/50</string>
+    <string name="ans_could_go_either_way">Could go either way</string>
+
+    <!-- Silly -->
+    <string name="ans_too_high">Bro I’m too high for this</string>
+    <string name="ans_sandwich">Go eat a sandwich</string>
+    <string name="ans_ask_cat">Ask your cat</string>
+    <string name="ans_potato">The answer is… potato</string>
+    <string name="ans_gooooy">گووووی!</string>
+
     <string name="app_name">GOOOY!</string>
+    <string name="label_goooy">GOOOY</string>
+    <string name="message_hold_to_get_answer">Hold On Screen To Get your Answer</string>
 </resources>
