@@ -52,7 +52,6 @@ fun IntentionScreen(navController: NavController) {
         var currentGestureState by remember { mutableStateOf(IntentionGestureState.Idle) }
         var circleRadius by remember { mutableFloatStateOf(0f) }
         val navigationThreshold = remember { 700 }
-
         val surfaceBrightColor = MaterialTheme.colorScheme.primaryContainer
         val animatedRadios by animateFloatAsState(
             circleRadius,
@@ -66,6 +65,14 @@ fun IntentionScreen(navController: NavController) {
                     Spring.StiffnessMedium else Spring.StiffnessVeryLow,
             )
         )
+
+        LaunchedEffect(animatedRadios) {
+            if (animatedRadios >= 2000) {
+                navController.navigate(GOOOYScreens.Answer) {
+                    launchSingleTop = true
+                }
+            }
+        }
 
         LaunchedEffect(currentGestureState) {
             when (currentGestureState) {
@@ -107,11 +114,6 @@ fun IntentionScreen(navController: NavController) {
                 IntentionGestureState.Released -> {
                     if (circleRadius >= navigationThreshold - 150f) {
                         circleRadius = 2500f
-
-                        navController.navigate(GOOOYScreens.Answer) {
-                            launchSingleTop = true
-                        }
-                        currentGestureState = IntentionGestureState.Idle
                     } else {
                         currentGestureState = IntentionGestureState.Idle
                     }
@@ -162,7 +164,7 @@ fun IntentionScreen(navController: NavController) {
                             stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
                                 Spring.StiffnessMedium else Spring.StiffnessVeryLow,
                         )
-                    ) togetherWith fadeOut(tween (100))
+                    ) togetherWith fadeOut(tween(100))
                 }
             ) {
                 when (it) {
@@ -228,20 +230,9 @@ fun IntentionScreen(navController: NavController) {
                             )
                     }
 
-                    IntentionGestureState.Released -> {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "WHooo",
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            style = MaterialTheme.typography.displayLarge,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center
-                        )
-                    }
+                    else -> {}
                 }
             }
-
-
         }
     }
 }
