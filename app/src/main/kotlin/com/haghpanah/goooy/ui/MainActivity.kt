@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.haghpanah.goooy.ui.answer.AnswerScreen
-import com.haghpanah.goooy.ui.intention.IntentionScreen
+import com.haghpanah.goooy.feature.answer.AnswerScreen
+import com.haghpanah.goooy.feature.intention.IntentionScreen
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import com.haghpanah.goooy.ui.theme.GOOOYTheme
-import java.nio.file.WatchEvent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
