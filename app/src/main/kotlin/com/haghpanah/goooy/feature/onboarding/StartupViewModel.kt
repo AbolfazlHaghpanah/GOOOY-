@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.feature.startup
+package com.haghpanah.goooy.feature.onboarding
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

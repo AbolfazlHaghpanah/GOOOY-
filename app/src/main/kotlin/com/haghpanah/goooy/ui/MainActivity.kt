@@ -1,6 +1,7 @@
 package com.haghpanah.goooy.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,32 +24,34 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.haghpanah.goooy.feature.answer.AnswerScreen
 import com.haghpanah.goooy.feature.intention.IntentionScreen
-import com.haghpanah.goooy.feature.startup.screens.IntroductionScreen
+import com.haghpanah.goooy.feature.onboarding.screens.IntroductionScreen
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import com.haghpanah.goooy.ui.theme.GOOOYTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var canSkipSplash = false
+        var shouldStayOnSplash = true
         installSplashScreen().apply {
-            setKeepOnScreenCondition { canSkipSplash }
+            setKeepOnScreenCondition { shouldStayOnSplash }
         }
 
         setContent {
-
             val viewModel = hiltViewModel<MainViewModel>()
             val navController = rememberNavController()
-
             val currentTheme by viewModel.currentTheme.collectAsStateWithLifecycle()
             val hasSeenIntro by viewModel.hasSeenIntro.collectAsStateWithLifecycle()
 
             LaunchedEffect(hasSeenIntro) {
                 if (hasSeenIntro != null) {
-                    canSkipSplash = true
+                    delay(100)
+                    shouldStayOnSplash = true
                 }
             }
 

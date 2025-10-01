@@ -1,10 +1,6 @@
-package com.haghpanah.goooy.feature.startup.screens
+package com.haghpanah.goooy.feature.onboarding.screens
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,7 +36,7 @@ import androidx.navigation.NavController
 import com.haghpanah.goooy.R
 import com.haghpanah.goooy.common.enums.AppLanguage
 import com.haghpanah.goooy.common.enums.ThemeType
-import com.haghpanah.goooy.feature.startup.StartupViewModel
+import com.haghpanah.goooy.feature.onboarding.StartupViewModel
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import com.haghpanah.goooy.ui.theme.GOOOYTheme
 
