@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.GOOOY" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.GOOOY" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#050707</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/goooy_icon_round</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="postSplashScreenTheme">@style/Theme.GOOOY</item>
+    </style>
 </resources>

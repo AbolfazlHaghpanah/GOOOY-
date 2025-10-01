@@ -13,4 +13,13 @@ sealed class GOOOYScreens {
 
     @Serializable
     data object Setting
+
+    @Serializable
+    data object Introduction
+
+    @Serializable
+    data object LanguageSelector
+
+    @Serializable
+    data object ThemeSelector
 }

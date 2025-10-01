@@ -9,6 +9,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.haghpanah.goooy.common.enums.ThemeType
 
 private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,
@@ -88,11 +89,15 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun GOOOYTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeType: ThemeType,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (darkTheme)
-        DarkColorScheme else LightColorScheme
+    val colorScheme = when (themeType) {
+        ThemeType.Dark -> DarkColorScheme
+        ThemeType.Light -> LightColorScheme
+        ThemeType.SystemBased -> if (isSystemInDarkTheme())
+            DarkColorScheme else LightColorScheme
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,

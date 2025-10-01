@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ans_yes_absolutely">Hell yeah, bro!</string>
+    <string name="ans_for_sure_bro">For sure, dude.</string>
+    <string name="ans_its_happening">It’s totally happening.</string>
+    <string name="ans_no_doubts">No doubt, my guy.</string>
+    <string name="ans_guaranteed">Locked in, fam.</string>
+
+    <!-- Negative -->
+    <string name="ans_no_chance">Nope, not a chance.</string>
+    <string name="ans_forget_it">Forget about it.</string>
+    <string name="ans_hell_no">Big fat NO.</string>
+    <string name="ans_never_ever">Never ever, man.</string>
+    <string name="ans_not_today">Not today, buddy.</string>
+
+    <!-- Neutral -->
+    <string name="ans_maybe">Maybe… who knows.</string>
+    <string name="ans_ask_again_later">Ask me later, bro.</string>
+    <string name="ans_unclear">Kinda blurry, man.</string>
+    <string name="ans_fifty_fifty">50/50, flip a coin.</string>
+    <string name="ans_could_go_either_way">Could go either way, bro.</string>
+
+    <!-- Silly -->
+    <string name="ans_too_high">Bro I’m way too high for this.</string>
+    <string name="ans_sandwich">Go make a sandwich.</string>
+    <string name="ans_ask_cat">Ask your cat, not me.</string>
+    <string name="ans_potato">Answer is… potato.</string>
+    <string name="ans_gooooy">Gooooooy!</string>
+
+    <!-- App Meta -->
+    <string name="app_name">GOOOY!</string>
+    <string name="label_goooy">GOOOY</string>
+    <string name="message_hold_to_get_answer">Hold the screen, bro, and I’ll drop the truth.</string>
+    <string name="message_intorduction_description">Can’t decide? Let GOOOY! mess with your fate. \nTap in, and see what destiny (or a potato) says.</string>
+    <string name="label_continue">Let’s Go</string>
+    <string name="label_select_language">Pick a language, dude:</string>
+
+</resources>

@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.ui.intention
+package com.haghpanah.goooy.feature.intention
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.Spring

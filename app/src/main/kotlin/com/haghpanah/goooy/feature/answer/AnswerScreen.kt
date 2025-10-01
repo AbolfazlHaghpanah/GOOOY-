@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.ui.answer
+package com.haghpanah.goooy.feature.answer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
