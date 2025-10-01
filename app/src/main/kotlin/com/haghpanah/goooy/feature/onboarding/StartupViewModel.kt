@@ -34,6 +34,19 @@ class StartupViewModel @Inject constructor(
     private val _currentLanguage = MutableStateFlow(AppLanguage.getDefault())
     val currentLanguage = _currentLanguage.asStateFlow()
 
+    init {
+        getCurrentLanguage()
+    }
+
+    fun getCurrentLanguage() {
+        viewModelScope.launch {
+            _currentLanguage.emit(
+                settingRepository.getCurrentLanguage()
+                    ?: AppLanguage.getDefault()
+            )
+        }
+    }
+
     fun setLanguage(
         language: AppLanguage,
     ) {
