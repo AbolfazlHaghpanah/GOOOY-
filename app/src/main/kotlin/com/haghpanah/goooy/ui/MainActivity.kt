@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             LaunchedEffect(hasSeenIntro) {
                 if (hasSeenIntro != null) {
                     delay(100)
-                    shouldStayOnSplash = true
+                    shouldStayOnSplash = false
                 }
             }
 
