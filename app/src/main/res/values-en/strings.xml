@@ -32,7 +32,12 @@
     <string name="label_goooy">GOOOY</string>
     <string name="message_hold_to_get_answer">Hold the screen, bro, and I’ll drop the truth.</string>
     <string name="message_intorduction_description">Can’t decide? Let GOOOY! mess with your fate. \nTap in, and see what destiny (or a potato) says.</string>
-    <string name="label_continue">Let’s Go</string>
+    <string name="label_continue">Continue</string>
     <string name="label_select_language">Pick a language, dude:</string>
-
+    <string name="label_lets_go">Let’s Go</string>
+    <string name="message_theme_selector_message">Who do you ask for the mar</string>
+    <string name="label_dark">Dark</string>
+    <string name="label_light">Light</string>
+    <string name="label_system_default">System Default</string>
+    <string name="label_chose_your_theme">Chose your Theme</string>
 </resources>

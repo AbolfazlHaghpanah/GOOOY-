@@ -1,5 +1,8 @@
 package com.haghpanah.goooy.feature.onboarding.screens
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -40,37 +45,43 @@ import com.haghpanah.goooy.feature.onboarding.StartupViewModel
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import com.haghpanah.goooy.ui.theme.GOOOYTheme
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun IntroductionScreen(
+fun OnBoardingLanguageSelectorScreen(
     navController: NavController,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     viewModel: StartupViewModel = hiltViewModel(),
 ) {
     val selectedLanguage by viewModel.currentLanguage.collectAsStateWithLifecycle()
 
-    IntroductionScreen(
-        selectedLanguage = selectedLanguage,
-        onLanguageSelected = {
-            viewModel.setLanguage(
-                language = it,
-            )
-        },
-        onContinue = {
-            viewModel.markIntroSeen {
-                navController.navigate(GOOOYScreens.Intention) {
+    with(sharedTransitionScope) {
+        OnBoardingLanguageSelectorScreen(
+            selectedLanguage = selectedLanguage,
+            onLanguageSelected = {
+                viewModel.setLanguage(
+                    language = it,
+                )
+            },
+            animatedContentScope = animatedContentScope,
+            onContinue = {
+                navController.navigate(GOOOYScreens.OnBoardingThemeSelector) {
                     launchSingleTop = true
                     popUpTo(GOOOYScreens.Intention) {
                         inclusive = true
                     }
                 }
             }
-        }
-    )
+        )
+    }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun IntroductionScreen(
+private fun SharedTransitionScope.OnBoardingLanguageSelectorScreen(
     selectedLanguage: AppLanguage,
     onLanguageSelected: (AppLanguage) -> Unit,
+    animatedContentScope: AnimatedContentScope,
     onContinue: () -> Unit,
 ) {
     Box(
@@ -85,12 +96,19 @@ private fun IntroductionScreen(
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .sharedElement(
+                        sharedContentState = this@OnBoardingLanguageSelectorScreen
+                            .rememberSharedContentState("logo"),
+                        animatedVisibilityScope = animatedContentScope
+                    )
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -154,7 +172,7 @@ private fun IntroductionScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { onLanguageSelected(language) }
                     ) {
-                        Text(language.getText())
+                        Text(language.getTextId())
                     }
 
                     if (index != AppLanguage.entries.lastIndex) {
@@ -175,25 +193,25 @@ private fun IntroductionScreen(
     }
 }
 
-fun AppLanguage.getText() =
+fun AppLanguage.getTextId() =
     when (this) {
         AppLanguage.En -> "English"
         AppLanguage.Fa -> "فارسی"
     }
-
-@Preview
-@Composable
-private fun IntroductionScreenPreview() {
-    GOOOYTheme(ThemeType.Dark) {
-        Box(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
-        ) {
-            IntroductionScreen(
-                selectedLanguage = AppLanguage.Fa,
-                onLanguageSelected = {},
-                onContinue = {}
-            )
-        }
-
-    }
-}
+//
+//@Preview
+//@Composable
+//private fun IntroductionScreenPreview() {
+//    GOOOYTheme(ThemeType.Dark) {
+//        Box(
+//            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+//        ) {
+//            OnBoardingLanguageSelectorScreen(
+//                selectedLanguage = AppLanguage.Fa,
+//                onLanguageSelected = {},
+//                onContinue = {}
+//            )
+//        }
+//
+//    }
+//}

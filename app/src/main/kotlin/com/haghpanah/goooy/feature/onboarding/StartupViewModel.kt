@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +22,9 @@ class StartupViewModel @Inject constructor(
     private val settingRepository: SettingRepository,
 ) : ViewModel() {
     val currentTheme = settingRepository.observeTheme()
+        .map {
+            it ?: ThemeType.getDefault()
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,

@@ -1,6 +1,9 @@
 package com.haghpanah.goooy.feature.intention
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -44,196 +47,210 @@ import com.haghpanah.goooy.R
 import com.haghpanah.goooy.ui.navigation.GOOOYScreens
 import kotlinx.coroutines.delay
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun IntentionScreen(navController: NavController) {
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface
-    ) { scaffoldPadding ->
-        var currentGestureState by remember { mutableStateOf(IntentionGestureState.Idle) }
-        var circleRadius by remember { mutableFloatStateOf(0f) }
-        val navigationThreshold = remember { 700 }
-        val surfaceBrightColor = MaterialTheme.colorScheme.primaryContainer
-        val animatedRadios by animateFloatAsState(
-            circleRadius,
-            animationSpec = spring(
-                dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
-                    Spring.DampingRatioHighBouncy
-                } else {
-                    Spring.DampingRatioNoBouncy
-                },
-                stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
-                    Spring.StiffnessMedium else Spring.StiffnessVeryLow,
-            )
-        )
-
-        LaunchedEffect(animatedRadios) {
-            if (animatedRadios >= 2000) {
-                navController.navigate(GOOOYScreens.Answer) {
-                    launchSingleTop = true
-                }
-            }
-        }
-
-        LaunchedEffect(currentGestureState) {
-            when (currentGestureState) {
-                IntentionGestureState.Idle -> {
-                    circleRadius = 0f
-                }
-
-                IntentionGestureState.Pressed -> {
-                    circleRadius = 50f
-                    currentGestureState = IntentionGestureState.OnHoldNotReady
-                }
-
-                IntentionGestureState.OnHoldNotReady -> {
-                    while (true) {
-                        delay(70)
-                        if (circleRadius >= navigationThreshold) {
-                            currentGestureState = IntentionGestureState.OnHoldReady
-                        } else {
-                            circleRadius += 70
-                        }
-                    }
-                }
-
-                IntentionGestureState.OnHoldReady -> {
-                    var shouldAdd = false
-
-                    while (true) {
-                        delay(10)
-                        if (!shouldAdd) {
-                            circleRadius -= 20
-                            shouldAdd = true
-                        } else {
-                            circleRadius += 20
-                            shouldAdd = false
-                        }
-                    }
-                }
-
-                IntentionGestureState.Released -> {
-                    if (circleRadius >= navigationThreshold - 150f) {
-                        circleRadius = 2500f
+fun IntentionScreen(
+    navController: NavController,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+) {
+    with(sharedTransitionScope) {
+        Scaffold(
+            containerColor = MaterialTheme.colorScheme.surface
+        ) { scaffoldPadding ->
+            var currentGestureState by remember { mutableStateOf(IntentionGestureState.Idle) }
+            var circleRadius by remember { mutableFloatStateOf(0f) }
+            val navigationThreshold = remember { 700 }
+            val surfaceBrightColor = MaterialTheme.colorScheme.primaryContainer
+            val animatedRadios by animateFloatAsState(
+                circleRadius,
+                animationSpec = spring(
+                    dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
+                        Spring.DampingRatioHighBouncy
                     } else {
-                        currentGestureState = IntentionGestureState.Idle
+                        Spring.DampingRatioNoBouncy
+                    },
+                    stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
+                        Spring.StiffnessMedium else Spring.StiffnessVeryLow,
+                )
+            )
+
+            LaunchedEffect(animatedRadios) {
+                if (animatedRadios >= 2000) {
+                    navController.navigate(GOOOYScreens.Answer) {
+                        launchSingleTop = true
                     }
                 }
             }
-        }
 
-        Column(
-            modifier = Modifier
-                .pointerInput(PointerEventType.Press, PointerEventType.Release) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            val event = awaitPointerEvent()
-
-                            if (event.type == PointerEventType.Press) {
-                                currentGestureState = IntentionGestureState.Pressed
-                            } else if (event.type == PointerEventType.Release) {
-                                currentGestureState = IntentionGestureState.Released
-                            }
-                        }
-                    }
-                }
-                .drawBehind(
-                    onDraw = {
-                        drawCircle(
-                            alpha = lerp(0f, 1f, animatedRadios / 200),
-                            color = surfaceBrightColor,
-                            radius = animatedRadios
-                        )
-                    }
-                )
-                .padding(scaffoldPadding)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AnimatedContent(
-                modifier = Modifier.fillMaxWidth(),
-                targetState = currentGestureState,
-                transitionSpec = {
-                    scaleIn(
-                        spring(
-                            dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
-                                Spring.DampingRatioHighBouncy
-                            } else {
-                                Spring.DampingRatioNoBouncy
-                            },
-                            stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
-                                Spring.StiffnessMedium else Spring.StiffnessVeryLow,
-                        )
-                    ) togetherWith fadeOut(tween(100))
-                }
-            ) {
-                when (it) {
+            LaunchedEffect(currentGestureState) {
+                when (currentGestureState) {
                     IntentionGestureState.Idle -> {
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.label_goooy),
-                                    color = MaterialTheme.colorScheme.primary,
-                                    style = MaterialTheme.typography.displayLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.Center
-                                )
-
-                                Icon(
-                                    modifier = Modifier
-                                        .padding(horizontal = 16.dp)
-                                        .height(64.dp),
-                                    imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(48.dp))
-
-                            Text(
-                                text = stringResource(R.string.message_hold_to_get_answer),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
+                        circleRadius = 0f
                     }
 
-                    IntentionGestureState.Pressed, IntentionGestureState.OnHoldNotReady -> {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Hold Still",
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.displayLarge,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center
-                        )
+                    IntentionGestureState.Pressed -> {
+                        circleRadius = 50f
+                        currentGestureState = IntentionGestureState.OnHoldNotReady
+                    }
+
+                    IntentionGestureState.OnHoldNotReady -> {
+                        while (true) {
+                            delay(70)
+                            if (circleRadius >= navigationThreshold) {
+                                currentGestureState = IntentionGestureState.OnHoldReady
+                            } else {
+                                circleRadius += 70
+                            }
+                        }
                     }
 
                     IntentionGestureState.OnHoldReady -> {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "and Release",
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            style = MaterialTheme.typography.displayLarge,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+                        var shouldAdd = false
 
-                            )
+                        while (true) {
+                            delay(10)
+                            if (!shouldAdd) {
+                                circleRadius -= 20
+                                shouldAdd = true
+                            } else {
+                                circleRadius += 20
+                                shouldAdd = false
+                            }
+                        }
                     }
 
-                    else -> {}
+                    IntentionGestureState.Released -> {
+                        if (circleRadius >= navigationThreshold - 150f) {
+                            circleRadius = 2500f
+                        } else {
+                            currentGestureState = IntentionGestureState.Idle
+                        }
+                    }
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .pointerInput(PointerEventType.Press, PointerEventType.Release) {
+                        awaitPointerEventScope {
+                            while (true) {
+                                val event = awaitPointerEvent()
+
+                                if (event.type == PointerEventType.Press) {
+                                    currentGestureState = IntentionGestureState.Pressed
+                                } else if (event.type == PointerEventType.Release) {
+                                    currentGestureState = IntentionGestureState.Released
+                                }
+                            }
+                        }
+                    }
+                    .drawBehind(
+                        onDraw = {
+                            drawCircle(
+                                alpha = lerp(0f, 1f, animatedRadios / 200),
+                                color = surfaceBrightColor,
+                                radius = animatedRadios
+                            )
+                        }
+                    )
+                    .padding(scaffoldPadding)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AnimatedContent(
+                    modifier = Modifier.fillMaxWidth(),
+                    targetState = currentGestureState,
+                    transitionSpec = {
+                        scaleIn(
+                            spring(
+                                dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
+                                    Spring.DampingRatioHighBouncy
+                                } else {
+                                    Spring.DampingRatioNoBouncy
+                                },
+                                stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
+                                    Spring.StiffnessMedium else Spring.StiffnessVeryLow,
+                            )
+                        ) togetherWith fadeOut(tween(100))
+                    }
+                ) {
+                    when (it) {
+                        IntentionGestureState.Idle -> {
+                            Column(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .sharedElement(
+                                            sharedContentState = this@with
+                                                .rememberSharedContentState("logo"),
+                                            animatedVisibilityScope = animatedContentScope
+                                        )
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.label_goooy),
+                                        color = MaterialTheme.colorScheme.primary,
+                                        style = MaterialTheme.typography.displayLarge,
+                                        fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Center
+                                    )
+
+                                    Icon(
+                                        modifier = Modifier
+                                            .padding(horizontal = 16.dp)
+                                            .height(64.dp),
+                                        imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(48.dp))
+
+                                Text(
+                                    text = stringResource(R.string.message_hold_to_get_answer),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                            }
+                        }
+
+                        IntentionGestureState.Pressed, IntentionGestureState.OnHoldNotReady -> {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = "Hold Still",
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.displayLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                        IntentionGestureState.OnHoldReady -> {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = "and Release",
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                style = MaterialTheme.typography.displayLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+
+                                )
+                        }
+
+                        else -> {}
+                    }
                 }
             }
         }
+
     }
 }
 
