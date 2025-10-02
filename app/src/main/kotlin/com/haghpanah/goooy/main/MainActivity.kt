@@ -30,6 +30,7 @@ import com.haghpanah.goooy.featureintention.IntentionScreen
 import com.haghpanah.goooy.featureonboarding.screens.OnBoardingLanguageSelectorScreen
 import com.haghpanah.goooy.featureonboarding.screens.OnBoardingThemeSelectorScreen
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
+import com.haghpanah.goooy.coreui.navigation.mainNavGraph
 import com.haghpanah.goooy.coreui.theme.GOOOYTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -77,36 +78,10 @@ class MainActivity : AppCompatActivity() {
                             enterTransition = { fadeIn() },
                             exitTransition = { fadeOut() }
                         ) {
-                            composable<GOOOYScreens.Intention> {
-                                IntentionScreen(
-                                    navController = navController,
-                                    sharedTransitionScope = this@SharedTransitionLayout,
-                                    animatedContentScope = this@composable,
-                                )
-                            }
-                            composable<GOOOYScreens.Answer> {
-                                AnswerScreen(navController)
-                            }
-                            composable<GOOOYScreens.OnBoardingLanguageSelector>(
-                                enterTransition = { slideInHorizontally() + fadeIn() },
-                                exitTransition = { slideOutHorizontally { -it } + fadeOut() }
-                            ) {
-                                OnBoardingLanguageSelectorScreen(
-                                    navController = navController,
-                                    sharedTransitionScope = this@SharedTransitionLayout,
-                                    animatedContentScope = this@composable,
-                                )
-                            }
-                            composable<GOOOYScreens.OnBoardingThemeSelector>(
-                                enterTransition = { slideInHorizontally{ it} + fadeIn() },
-                                exitTransition = { fadeOut() }
-                            ) {
-                                OnBoardingThemeSelectorScreen(
-                                    navController = navController,
-                                    sharedTransitionScope = this@SharedTransitionLayout,
-                                    animatedContentScope = this@composable,
-                                )
-                            }
+                            mainNavGraph(
+                                navController = navController,
+                                sharedTransitionScope = this@SharedTransitionLayout
+                            )
                         }
                     }
                 }

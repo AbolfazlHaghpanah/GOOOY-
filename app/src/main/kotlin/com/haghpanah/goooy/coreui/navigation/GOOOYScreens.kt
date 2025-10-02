@@ -12,17 +12,8 @@ sealed class GOOOYScreens {
     data object Answer
 
     @Serializable
-    data object Setting
-
-    @Serializable
     data object OnBoardingLanguageSelector
 
     @Serializable
     data object OnBoardingThemeSelector
-
-    @Serializable
-    data object LanguageSelector
-
-    @Serializable
-    data object ThemeSelector
 }

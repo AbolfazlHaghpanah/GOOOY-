@@ -30,7 +30,12 @@
     <!-- App Meta -->
     <string name="app_name">GOOOY!</string>
     <string name="label_goooy">GOOOY</string>
-    <string name="message_hold_to_get_answer">Hold the screen, bro, and I’ll drop the truth.</string>
+    <string name="message_hold_to_get_answer">Hold the screen, and I’ll drop the truth.</string>
+    <string name="message_hold_more_hint_1">You’ve dropped to soon!</string>
+    <string name="message_hold_more_hint_2">I’ll tell you when you should release</string>
+    <string name="message_hold_more_hint_3">You are not a patient one at all.</string>
+    <string name="label_hold_still">Hold Still</string>
+    <string name="label_release">Release</string>
     <string name="message_intorduction_description">Can’t decide? Let GOOOY! mess with your fate. \nTap in, and see what destiny (or a potato) says.</string>
     <string name="label_continue">Continue</string>
     <string name="label_select_language">Pick a language, dude:</string>

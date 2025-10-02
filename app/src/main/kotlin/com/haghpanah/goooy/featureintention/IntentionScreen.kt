@@ -1,8 +1,8 @@
 package com.haghpanah.goooy.featureintention
 
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -25,8 +25,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -53,207 +55,236 @@ fun IntentionScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
 ) {
-    with(sharedTransitionScope) {
-        Scaffold(
-            containerColor = MaterialTheme.colorScheme.surface
-        ) { scaffoldPadding ->
-            var currentGestureState by remember { mutableStateOf(IntentionGestureState.Idle) }
-            var circleRadius by remember { mutableFloatStateOf(0f) }
-            val navigationThreshold = remember { 700 }
-            val surfaceBrightColor = MaterialTheme.colorScheme.primaryContainer
-            val animatedRadios by animateFloatAsState(
-                circleRadius,
-                animationSpec = spring(
-                    dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
-                        Spring.DampingRatioHighBouncy
+    var currentGestureState by remember { mutableStateOf(IntentionGestureState.Idle) }
+    var circleRadius by remember { mutableFloatStateOf(0f) }
+    var soonReleasedCounter by remember { mutableIntStateOf(0) }
+    val hintTextId by remember {
+        derivedStateOf {
+            if (soonReleasedCounter == 0) {
+                R.string.message_hold_to_get_answer
+            } else {
+                setOf(
+                    R.string.message_hold_more_hint_1,
+                    R.string.message_hold_more_hint_2,
+                    R.string.message_hold_more_hint_3,
+                ).random()
+            }
+        }
+    }
+    val animatedRadios by animateFloatAsState(
+        circleRadius,
+        animationSpec = spring(
+            dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
+                Spring.DampingRatioHighBouncy
+            } else {
+                Spring.DampingRatioNoBouncy
+            },
+            stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
+                Spring.StiffnessMedium else Spring.StiffnessVeryLow,
+        )
+    )
+    val navigationThreshold = remember { 700 }
+
+    LaunchedEffect(animatedRadios) {
+        if (animatedRadios >= 2000) {
+            navController.navigate(GOOOYScreens.Answer) {
+                launchSingleTop = true
+            }
+        }
+    }
+
+    LaunchedEffect(currentGestureState) {
+        when (currentGestureState) {
+            IntentionGestureState.Idle -> {
+                circleRadius = 0f
+            }
+
+            IntentionGestureState.Pressed -> {
+                circleRadius = 50f
+                currentGestureState = IntentionGestureState.OnHoldNotReady
+            }
+
+            IntentionGestureState.OnHoldNotReady -> {
+                while (true) {
+                    delay(70)
+                    if (circleRadius >= navigationThreshold) {
+                        currentGestureState = IntentionGestureState.OnHoldReady
                     } else {
-                        Spring.DampingRatioNoBouncy
-                    },
-                    stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
-                        Spring.StiffnessMedium else Spring.StiffnessVeryLow,
-                )
-            )
-
-            LaunchedEffect(animatedRadios) {
-                if (animatedRadios >= 2000) {
-                    navController.navigate(GOOOYScreens.Answer) {
-                        launchSingleTop = true
+                        circleRadius += 70
                     }
                 }
             }
 
-            LaunchedEffect(currentGestureState) {
-                when (currentGestureState) {
-                    IntentionGestureState.Idle -> {
-                        circleRadius = 0f
-                    }
+            IntentionGestureState.OnHoldReady -> {
+                var shouldAdd = false
 
-                    IntentionGestureState.Pressed -> {
-                        circleRadius = 50f
-                        currentGestureState = IntentionGestureState.OnHoldNotReady
-                    }
-
-                    IntentionGestureState.OnHoldNotReady -> {
-                        while (true) {
-                            delay(70)
-                            if (circleRadius >= navigationThreshold) {
-                                currentGestureState = IntentionGestureState.OnHoldReady
-                            } else {
-                                circleRadius += 70
-                            }
-                        }
-                    }
-
-                    IntentionGestureState.OnHoldReady -> {
-                        var shouldAdd = false
-
-                        while (true) {
-                            delay(10)
-                            if (!shouldAdd) {
-                                circleRadius -= 20
-                                shouldAdd = true
-                            } else {
-                                circleRadius += 20
-                                shouldAdd = false
-                            }
-                        }
-                    }
-
-                    IntentionGestureState.Released -> {
-                        if (circleRadius >= navigationThreshold - 150f) {
-                            circleRadius = 2500f
-                        } else {
-                            currentGestureState = IntentionGestureState.Idle
-                        }
+                while (true) {
+                    delay(10)
+                    if (!shouldAdd) {
+                        circleRadius -= 20
+                        shouldAdd = true
+                    } else {
+                        circleRadius += 20
+                        shouldAdd = false
                     }
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .pointerInput(PointerEventType.Press, PointerEventType.Release) {
-                        awaitPointerEventScope {
-                            while (true) {
-                                val event = awaitPointerEvent()
+            IntentionGestureState.Released -> {
+                if (circleRadius >= navigationThreshold - 150f) {
+                    circleRadius = 2500f
+                } else {
+                    soonReleasedCounter++
+                    currentGestureState = IntentionGestureState.Idle
+                }
+            }
+        }
+    }
 
-                                if (event.type == PointerEventType.Press) {
-                                    currentGestureState = IntentionGestureState.Pressed
-                                } else if (event.type == PointerEventType.Release) {
-                                    currentGestureState = IntentionGestureState.Released
-                                }
-                            }
+    with(sharedTransitionScope) {
+        IntentionScreen(
+            animatedContentScope = animatedContentScope,
+            currentGestureState = currentGestureState,
+            onGestureStateChanged = {
+                currentGestureState = it
+            },
+            hintTextId = hintTextId,
+            circleRadius = animatedRadios,
+        )
+    }
+}
+
+@Composable
+private fun SharedTransitionScope.IntentionScreen(
+    animatedContentScope: AnimatedContentScope,
+    circleRadius: Float,
+    @StringRes hintTextId: Int,
+    currentGestureState: IntentionGestureState,
+    onGestureStateChanged: (IntentionGestureState) -> Unit,
+) {
+    val circleColor = MaterialTheme.colorScheme.primaryContainer
+
+    Column(
+        modifier = Modifier
+            .pointerInput(PointerEventType.Press, PointerEventType.Release) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val event = awaitPointerEvent()
+
+                        if (event.type == PointerEventType.Press) {
+                            onGestureStateChanged(IntentionGestureState.Pressed)
+                        } else if (event.type == PointerEventType.Release) {
+                            onGestureStateChanged(IntentionGestureState.Released)
                         }
                     }
-                    .drawBehind(
-                        onDraw = {
-                            drawCircle(
-                                alpha = lerp(0f, 1f, animatedRadios / 200),
-                                color = surfaceBrightColor,
-                                radius = animatedRadios
-                            )
-                        }
+                }
+            }
+            .drawBehind(
+                onDraw = {
+                    drawCircle(
+                        alpha = lerp(0f, 1f, circleRadius / 200),
+                        color = circleColor,
+                        radius = circleRadius
                     )
-                    .padding(scaffoldPadding)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                AnimatedContent(
-                    modifier = Modifier.fillMaxWidth(),
-                    targetState = currentGestureState,
-                    transitionSpec = {
-                        scaleIn(
-                            spring(
-                                dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
-                                    Spring.DampingRatioHighBouncy
-                                } else {
-                                    Spring.DampingRatioNoBouncy
-                                },
-                                stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
-                                    Spring.StiffnessMedium else Spring.StiffnessVeryLow,
-                            )
-                        ) togetherWith fadeOut(tween(100))
-                    }
-                ) {
-                    when (it) {
-                        IntentionGestureState.Idle -> {
-                            Column(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .sharedElement(
-                                            sharedContentState = this@with
-                                                .rememberSharedContentState("logo"),
-                                            animatedVisibilityScope = animatedContentScope
-                                        )
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.label_goooy),
-                                        color = MaterialTheme.colorScheme.primary,
-                                        style = MaterialTheme.typography.displayLarge,
-                                        fontWeight = FontWeight.Bold,
-                                        textAlign = TextAlign.Center
-                                    )
-
-                                    Icon(
-                                        modifier = Modifier
-                                            .padding(horizontal = 16.dp)
-                                            .height(64.dp),
-                                        imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.height(48.dp))
-
-                                Text(
-                                    text = stringResource(R.string.message_hold_to_get_answer),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    style = MaterialTheme.typography.bodyMedium,
+                }
+            )
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AnimatedContent(
+            targetState = currentGestureState,
+            transitionSpec = {
+                scaleIn(
+                    spring(
+                        dampingRatio = if (currentGestureState == IntentionGestureState.OnHoldReady) {
+                            Spring.DampingRatioHighBouncy
+                        } else {
+                            Spring.DampingRatioNoBouncy
+                        },
+                        stiffness = if (currentGestureState == IntentionGestureState.OnHoldReady)
+                            Spring.StiffnessMedium else Spring.StiffnessVeryLow,
+                    )
+                ) togetherWith fadeOut(tween(100))
+            }
+        ) {
+            when (it) {
+                IntentionGestureState.Idle -> {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .sharedElement(
+                                    sharedContentState = this@IntentionScreen
+                                        .rememberSharedContentState("logo"),
+                                    animatedVisibilityScope = animatedContentScope
                                 )
-                            }
-                        }
-
-                        IntentionGestureState.Pressed, IntentionGestureState.OnHoldNotReady -> {
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
                             Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = "Hold Still",
+                                text = stringResource(R.string.label_goooy),
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.displayLarge,
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center
                             )
+
+                            Icon(
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp)
+                                    .height(64.dp),
+                                imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                         }
 
-                        IntentionGestureState.OnHoldReady -> {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = "and Release",
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                style = MaterialTheme.typography.displayLarge,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
+                        Spacer(modifier = Modifier.height(48.dp))
 
-                                )
-                        }
-
-                        else -> {}
+                        Text(
+                            text = stringResource(hintTextId),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                     }
+                }
+
+                IntentionGestureState.Pressed, IntentionGestureState.OnHoldNotReady -> {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.label_hold_still),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.displayLarge,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+                IntentionGestureState.OnHoldReady -> {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.label_release),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        style = MaterialTheme.typography.displayLarge,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+
+                IntentionGestureState.Released -> {
+                    Spacer(modifier = Modifier.fillMaxWidth())
                 }
             }
         }
-
     }
 }
 
-enum class IntentionGestureState {
+private enum class IntentionGestureState {
     Idle,
     Pressed,
     OnHoldNotReady,

@@ -30,7 +30,12 @@
     <!-- App Meta -->
     <string name="app_name">گووووی!</string>
     <string name="label_goooy">گووووی</string>
-    <string name="message_hold_to_get_answer">صفحه رو نگه دار داداش، الان جواب میاد.</string>
+    <string name="message_hold_to_get_answer">وقتی سوالت رو پرسیدی، لمسم کن تا جوابتو بگیری</string>
+    <string name="message_hold_more_hint_1">مممم زود دوستتو ورداشتی</string>
+    <string name="message_hold_more_hint_2">انقد دستتو نگه دار تا بگمت</string>
+    <string name="message_hold_more_hint_3">برای گرفتن جواب نمیتونی دو صدم ثانیه لمسم کنی؟</string>
+    <string name="label_hold_still">نگه دار</string>
+    <string name="label_release">ول کن</string>
     <string name="message_intorduction_description">نمیدونی چیکار کنی؟ بده دست گووووی! \nاین اپلیکیشن یه چیزی میگه… یا سرنوشتت رو عوض می‌کنه یا یه سیب‌زمینی میده دستت.</string>
     <string name="label_continue">ادامه</string>
     <string name="label_lets_go">بزن بریم</string>
