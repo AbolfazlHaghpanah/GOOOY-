@@ -47,7 +47,6 @@ import com.haghpanah.goooy.R
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun IntentionScreen(
     navController: NavController,

@@ -41,7 +41,6 @@ import com.haghpanah.goooy.model.enums.AppLanguage
 import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun OnBoardingLanguageSelectorScreen(
     navController: NavController,
@@ -72,7 +71,6 @@ fun OnBoardingLanguageSelectorScreen(
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun SharedTransitionScope.OnBoardingLanguageSelectorScreen(
     selectedLanguage: AppLanguage,

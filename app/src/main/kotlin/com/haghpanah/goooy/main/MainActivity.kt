@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentWindowInsets = WindowInsets()
                 ) {
-                    @OptIn(ExperimentalSharedTransitionApi::class)
                     SharedTransitionLayout {
                         NavHost(
                             modifier = Modifier

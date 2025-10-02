@@ -54,7 +54,6 @@ import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestDark
 import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestLight
 import com.haghpanah.goooy.coreui.theme.surfaceContainerLight
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun OnBoardingThemeSelectorScreen(
     navController: NavController,
@@ -84,7 +83,6 @@ fun OnBoardingThemeSelectorScreen(
     }
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
     selectedTheme: ThemeStyle,
