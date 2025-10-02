@@ -1,10 +1,10 @@
-package com.haghpanah.goooy.feature.onboarding
+package com.haghpanah.goooy.featureonboarding
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haghpanah.goooy.common.enums.AppLanguage
-import com.haghpanah.goooy.common.enums.ThemeType
+import com.haghpanah.goooy.model.enums.AppLanguage
+import com.haghpanah.goooy.model.enums.ThemeStyle
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -18,17 +18,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StartupViewModel @Inject constructor(
+class OnBoardingViewModel @Inject constructor(
     private val settingRepository: SettingRepository,
 ) : ViewModel() {
     val currentTheme = settingRepository.observeTheme()
         .map {
-            it ?: ThemeType.getDefault()
+            it ?: ThemeStyle.getDefault()
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = ThemeType.Dark
+            initialValue = ThemeStyle.Dark
         )
 
     private val _currentLanguage = MutableStateFlow(AppLanguage.getDefault())
@@ -77,7 +77,7 @@ class StartupViewModel @Inject constructor(
         }
     }
 
-    fun setTheme(theme: ThemeType) {
+    fun setTheme(theme: ThemeStyle) {
         viewModelScope.launch(Dispatchers.IO) {
             settingRepository.setTheme(theme)
         }

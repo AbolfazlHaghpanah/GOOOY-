@@ -8,8 +8,8 @@ import android.os.LocaleList
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.haghpanah.goooy.common.enums.AppLanguage
-import com.haghpanah.goooy.common.enums.ThemeType
+import com.haghpanah.goooy.model.enums.AppLanguage
+import com.haghpanah.goooy.model.enums.ThemeStyle
 import com.haghpanah.goooy.data.setting.storage.SettingStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +23,7 @@ class SettingRepositoryImpl @Inject constructor(
     private val localManager =
         context.getSystemService(LocaleManager::class.java)
 
-    override fun observeTheme(): Flow<ThemeType?> =
+    override fun observeTheme(): Flow<ThemeStyle?> =
         settingStorage.theme
 
     override fun observeHasSeenIntro(): Flow<Boolean> =
@@ -41,8 +41,8 @@ class SettingRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun setTheme(themeType: ThemeType) {
-        settingStorage.setTheme(themeType)
+    override suspend fun setTheme(themeStyle: ThemeStyle) {
+        settingStorage.setTheme(themeStyle)
     }
 
     override suspend fun setLanguage(language: AppLanguage) {

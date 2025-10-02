@@ -1,6 +1,5 @@
-package com.haghpanah.goooy.feature.onboarding.screens
+package com.haghpanah.goooy.featureonboarding.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -24,7 +23,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,23 +38,21 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.lerp
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.common.enums.ThemeType
-import com.haghpanah.goooy.feature.onboarding.StartupViewModel
-import com.haghpanah.goooy.ui.navigation.GOOOYScreens
-import com.haghpanah.goooy.ui.theme.GOOOYTheme
-import com.haghpanah.goooy.ui.theme.onSurfaceDark
-import com.haghpanah.goooy.ui.theme.onSurfaceLight
-import com.haghpanah.goooy.ui.theme.surfaceContainerDark
-import com.haghpanah.goooy.ui.theme.surfaceContainerHighestDark
-import com.haghpanah.goooy.ui.theme.surfaceContainerHighestLight
-import com.haghpanah.goooy.ui.theme.surfaceContainerLight
+import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
+import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
+import com.haghpanah.goooy.coreui.theme.onSurfaceDark
+import com.haghpanah.goooy.coreui.theme.onSurfaceLight
+import com.haghpanah.goooy.coreui.theme.surfaceContainerDark
+import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestDark
+import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestLight
+import com.haghpanah.goooy.coreui.theme.surfaceContainerLight
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -64,7 +60,7 @@ fun OnBoardingThemeSelectorScreen(
     navController: NavController,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
-    viewModel: StartupViewModel = hiltViewModel(),
+    viewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val selectedTheme by viewModel.currentTheme.collectAsStateWithLifecycle()
 
@@ -91,8 +87,8 @@ fun OnBoardingThemeSelectorScreen(
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
-    selectedTheme: ThemeType,
-    onThemeChange: (ThemeType) -> Unit,
+    selectedTheme: ThemeStyle,
+    onThemeChange: (ThemeStyle) -> Unit,
     animatedContentScope: AnimatedContentScope,
     onContinue: () -> Unit,
 ) {
@@ -163,7 +159,7 @@ private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
 
                 Spacer(modifier = Modifier.height(4.dp))
 
-                ThemeType.entries.forEach {
+                ThemeStyle.entries.forEach {
                     val isSelectedTransaction = updateTransition(
                         targetState = it == selectedTheme,
                     )
@@ -238,10 +234,10 @@ private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
 //}
 
 @Composable
-private fun ThemeType.getContainerColor() = when (this) {
-    ThemeType.Dark -> SolidColor(surfaceContainerDark)
-    ThemeType.Light -> SolidColor(surfaceContainerLight)
-    ThemeType.SystemBased -> if (LocalLayoutDirection.current == LayoutDirection.Rtl) {
+private fun ThemeStyle.getContainerColor() = when (this) {
+    ThemeStyle.Dark -> SolidColor(surfaceContainerDark)
+    ThemeStyle.Light -> SolidColor(surfaceContainerLight)
+    ThemeStyle.SystemBased -> if (LocalLayoutDirection.current == LayoutDirection.Rtl) {
         Brush.linearGradient(
             0.5f to surfaceContainerDark,
             0.5f to surfaceContainerLight,
@@ -255,25 +251,25 @@ private fun ThemeType.getContainerColor() = when (this) {
 }
 
 @Composable
-private fun ThemeType.getInnerContainerColor() = when (this) {
-    ThemeType.Dark -> SolidColor(surfaceContainerHighestDark)
-    ThemeType.Light -> SolidColor(surfaceContainerHighestLight)
-    ThemeType.SystemBased -> Brush.linearGradient(
+private fun ThemeStyle.getInnerContainerColor() = when (this) {
+    ThemeStyle.Dark -> SolidColor(surfaceContainerHighestDark)
+    ThemeStyle.Light -> SolidColor(surfaceContainerHighestLight)
+    ThemeStyle.SystemBased -> Brush.linearGradient(
         0.5f to surfaceContainerHighestDark,
         0.5f to surfaceContainerHighestLight,
     )
 }
 
 @Composable
-private fun ThemeType.getTextColor() = when (this) {
-    ThemeType.Dark -> onSurfaceDark
-    ThemeType.Light -> onSurfaceLight
-    ThemeType.SystemBased -> onSurfaceLight
+private fun ThemeStyle.getTextColor() = when (this) {
+    ThemeStyle.Dark -> onSurfaceDark
+    ThemeStyle.Light -> onSurfaceLight
+    ThemeStyle.SystemBased -> onSurfaceLight
 }
 
 @Composable
-private fun ThemeType.getTextId() = when (this) {
-    ThemeType.Dark -> R.string.label_dark
-    ThemeType.Light -> R.string.label_light
-    ThemeType.SystemBased -> R.string.label_system_default
+private fun ThemeStyle.getTextId() = when (this) {
+    ThemeStyle.Dark -> R.string.label_dark
+    ThemeStyle.Light -> R.string.label_light
+    ThemeStyle.SystemBased -> R.string.label_system_default
 }

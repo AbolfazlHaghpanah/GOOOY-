@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.ui.theme
+package com.haghpanah.goooy.coreui.theme
 
 import androidx.compose.ui.graphics.Color
 

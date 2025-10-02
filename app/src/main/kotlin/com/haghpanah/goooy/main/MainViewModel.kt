@@ -1,12 +1,8 @@
-package com.haghpanah.goooy.ui
+package com.haghpanah.goooy.main
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haghpanah.goooy.common.enums.AppLanguage
-import com.haghpanah.goooy.common.enums.ThemeType
+import com.haghpanah.goooy.model.enums.ThemeStyle
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,12 +16,12 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     val currentTheme = settingRepository.observeTheme()
         .map {
-            it ?: ThemeType.Dark
+            it ?: ThemeStyle.Dark
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = ThemeType.Dark
+            initialValue = ThemeStyle.Dark
         )
 
     val hasSeenIntro = settingRepository.observeHasSeenIntro()

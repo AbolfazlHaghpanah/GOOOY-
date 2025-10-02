@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.ui
+package com.haghpanah.goooy.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -9,7 +9,6 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
@@ -26,12 +25,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.haghpanah.goooy.feature.answer.AnswerScreen
-import com.haghpanah.goooy.feature.intention.IntentionScreen
-import com.haghpanah.goooy.feature.onboarding.screens.OnBoardingLanguageSelectorScreen
-import com.haghpanah.goooy.feature.onboarding.screens.OnBoardingThemeSelectorScreen
-import com.haghpanah.goooy.ui.navigation.GOOOYScreens
-import com.haghpanah.goooy.ui.theme.GOOOYTheme
+import com.haghpanah.goooy.featureanswer.AnswerScreen
+import com.haghpanah.goooy.featureintention.IntentionScreen
+import com.haghpanah.goooy.featureonboarding.screens.OnBoardingLanguageSelectorScreen
+import com.haghpanah.goooy.featureonboarding.screens.OnBoardingThemeSelectorScreen
+import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
+import com.haghpanah.goooy.coreui.theme.GOOOYTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 

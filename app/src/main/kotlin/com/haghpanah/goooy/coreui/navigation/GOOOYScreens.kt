@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.ui.navigation
+package com.haghpanah.goooy.coreui.navigation
 
 import kotlinx.serialization.Serializable
 

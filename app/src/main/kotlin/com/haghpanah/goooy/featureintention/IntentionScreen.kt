@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.feature.intention
+package com.haghpanah.goooy.featureintention
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.ui.navigation.GOOOYScreens
+import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalSharedTransitionApi::class)

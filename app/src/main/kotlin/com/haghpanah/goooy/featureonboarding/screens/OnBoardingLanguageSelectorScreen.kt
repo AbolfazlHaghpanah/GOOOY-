@@ -1,10 +1,9 @@
-package com.haghpanah.goooy.feature.onboarding.screens
+package com.haghpanah.goooy.featureonboarding.screens
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,17 +32,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.common.enums.AppLanguage
-import com.haghpanah.goooy.common.enums.ThemeType
-import com.haghpanah.goooy.feature.onboarding.StartupViewModel
-import com.haghpanah.goooy.ui.navigation.GOOOYScreens
-import com.haghpanah.goooy.ui.theme.GOOOYTheme
+import com.haghpanah.goooy.model.enums.AppLanguage
+import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
+import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -51,7 +47,7 @@ fun OnBoardingLanguageSelectorScreen(
     navController: NavController,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
-    viewModel: StartupViewModel = hiltViewModel(),
+    viewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val selectedLanguage by viewModel.currentLanguage.collectAsStateWithLifecycle()
 

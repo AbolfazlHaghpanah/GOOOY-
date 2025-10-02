@@ -5,8 +5,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.haghpanah.goooy.common.enums.AppLanguage
-import com.haghpanah.goooy.common.enums.ThemeType
+import com.haghpanah.goooy.model.enums.ThemeStyle
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,9 +16,9 @@ class SettingStorageImpl @Inject constructor(
 ) : SettingStorage {
     val preferences = context.datastore
 
-    override val theme: Flow<ThemeType?>
+    override val theme: Flow<ThemeStyle?>
         get() = preferences.data.map { preferences ->
-            ThemeType.entries.find { it.id == preferences[THEME_KEY] }
+            ThemeStyle.entries.find { it.id == preferences[THEME_KEY] }
         }
 
     override val hasSeenIntro: Flow<Boolean>
@@ -27,7 +26,7 @@ class SettingStorageImpl @Inject constructor(
             preferences[HAS_SEEN_INTRO_KEY] ?: false
         }
 
-    override suspend fun setTheme(value: ThemeType) {
+    override suspend fun setTheme(value: ThemeStyle) {
         preferences.edit { preferences ->
             preferences[THEME_KEY] = value.id
         }
