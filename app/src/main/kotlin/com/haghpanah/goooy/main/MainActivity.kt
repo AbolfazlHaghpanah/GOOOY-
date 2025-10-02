@@ -74,9 +74,7 @@ class MainActivity : AppCompatActivity() {
                                 GOOOYScreens.Intention
                             } else {
                                 GOOOYScreens.OnBoardingLanguageSelector
-                            },
-                            enterTransition = { fadeIn() },
-                            exitTransition = { fadeOut() }
+                            }
                         ) {
                             mainNavGraph(
                                 navController = navController,

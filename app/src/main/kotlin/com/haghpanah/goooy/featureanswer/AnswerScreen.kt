@@ -36,84 +36,78 @@ import kotlin.random.Random
 fun AnswerScreen(navController: NavController) {
     val answer = remember { answers[Random.nextInt(from = 0, answers.size - 1)] }
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
-        contentWindowInsets = WindowInsets()
+    Column(
+        modifier = Modifier
+            .navigationBarsPadding()
+            .clickable(
+                indication = null,
+                interactionSource = null
+            ) {
+                navController.navigateUp()
+            }
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
-                .navigationBarsPadding()
-                .clickable(
-                    indication = null,
-                    interactionSource = null
-                ) {
-                    navController.navigateUp()
-                }
-                .padding(it)
-                .fillMaxSize(),
+                .background(color = answer.color)
+                .statusBarsPadding()
+                .padding(
+                    horizontal = 20.dp,
+                    vertical = 64.dp
+                )
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .background(answer.color)
-                    .statusBarsPadding()
-                    .padding(
-                        horizontal = 20.dp,
-                        vertical = 64.dp
-                    )
+                    .padding(vertical = 16.dp)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Row(
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(answer.contentTextId),
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Spacer(modifier = Modifier.width(24.dp))
+
+                Text(
                     modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = stringResource(answer.contentTextId),
-                        color = Color.White,
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                    )
-
-                    Spacer(modifier = Modifier.width(24.dp))
-
-                    Text(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .background(Color.White)
-                            .padding(24.dp),
-                        text = answer.emoji,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.displayMedium,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.End
-                    )
-                }
+                        .clip(CircleShape)
+                        .background(Color.White)
+                        .padding(24.dp),
+                    text = answer.emoji,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.displayMedium,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.End
+                )
             }
+        }
 
-            Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(1f))
 
-            Text(
-                text = "Tab screen for asking another question",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyMedium,
-            )
+        Text(
+            text = "Tab screen for asking another question",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium,
+        )
 
-            Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(1f))
 
-            TextButton(
-                modifier = Modifier
-                    .padding(24.dp),
-                onClick = {
-                    navController.navigateUp()
-                }
-            ) {
-                Text("Did Not Like It? Try Again")
+        TextButton(
+            modifier = Modifier
+                .padding(24.dp),
+            onClick = {
+                navController.navigateUp()
             }
+        ) {
+            Text("Did Not Like It? Try Again")
         }
     }
 }

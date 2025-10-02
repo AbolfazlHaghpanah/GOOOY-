@@ -3,6 +3,7 @@ package com.haghpanah.goooy.coreui.navigation
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavController
@@ -17,14 +18,20 @@ fun NavGraphBuilder.mainNavGraph(
     navController: NavController,
     sharedTransitionScope: SharedTransitionScope,
 ) {
-    composable<GOOOYScreens.Intention> {
+    composable<GOOOYScreens.Intention>(
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() }
+    ) {
         IntentionScreen(
             navController = navController,
             sharedTransitionScope = sharedTransitionScope,
             animatedContentScope = this@composable,
         )
     }
-    composable<GOOOYScreens.Answer> {
+    composable<GOOOYScreens.Answer>(
+        enterTransition = { fadeIn() },
+        exitTransition = { fadeOut() }
+    ) {
         AnswerScreen(navController)
     }
     composable<GOOOYScreens.OnBoardingLanguageSelector>(

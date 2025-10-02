@@ -8,6 +8,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
@@ -85,14 +86,6 @@ fun IntentionScreen(
     )
     val navigationThreshold = remember { 700 }
 
-    LaunchedEffect(animatedRadios) {
-        if (animatedRadios >= 2000) {
-            navController.navigate(GOOOYScreens.Answer) {
-                launchSingleTop = true
-            }
-        }
-    }
-
     LaunchedEffect(currentGestureState) {
         when (currentGestureState) {
             IntentionGestureState.Idle -> {
@@ -133,6 +126,10 @@ fun IntentionScreen(
             IntentionGestureState.Released -> {
                 if (circleRadius >= navigationThreshold - 150f) {
                     circleRadius = 2500f
+                    delay(200)
+                    navController.navigate(GOOOYScreens.Answer) {
+                        launchSingleTop = true
+                    }
                 } else {
                     soonReleasedCounter++
                     currentGestureState = IntentionGestureState.Idle
@@ -276,9 +273,7 @@ private fun SharedTransitionScope.IntentionScreen(
                     )
                 }
 
-                IntentionGestureState.Released -> {
-                    Spacer(modifier = Modifier.fillMaxWidth())
-                }
+                IntentionGestureState.Released -> {}
             }
         }
     }
