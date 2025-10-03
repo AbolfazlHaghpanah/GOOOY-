@@ -3,8 +3,8 @@ package com.haghpanah.goooy.featureonboarding
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haghpanah.goooy.model.enums.AppLanguage
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.AppLanguage
+import com.haghpanah.goooy.model.ThemeStyle
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException

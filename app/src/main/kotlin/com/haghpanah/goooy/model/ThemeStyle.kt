@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.model.enums
+package com.haghpanah.goooy.model
 
 enum class ThemeStyle(val id: Int) {
     Dark(1),

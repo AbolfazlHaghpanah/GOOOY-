@@ -8,8 +8,8 @@ import android.os.LocaleList
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.haghpanah.goooy.model.enums.AppLanguage
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.AppLanguage
+import com.haghpanah.goooy.model.ThemeStyle
 import com.haghpanah.goooy.data.setting.storage.SettingStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

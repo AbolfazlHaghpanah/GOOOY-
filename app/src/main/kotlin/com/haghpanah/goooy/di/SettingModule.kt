@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.data.setting
+package com.haghpanah.goooy.di
 
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import com.haghpanah.goooy.data.setting.repository.SettingRepositoryImpl
@@ -6,7 +6,6 @@ import com.haghpanah.goooy.data.setting.storage.SettingStorage
 import com.haghpanah.goooy.data.setting.storage.SettingStorageImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton

@@ -1,0 +1,174 @@
+[
+  {
+    "id": 1,
+    "dayTimeRange": {
+      "startIn24": 6,
+      "endIn24": 12
+    },
+    "type": "positive",
+    "description": "خورشید می‌درخشه، تو هم بدرخش!",
+    "name": "صبح پرانرژی",
+    "emoji": "☀"
+  },
+  {
+    "id": 2,
+    "dayTimeRange": null,
+    "type": "positive",
+    "description": "صد در صد آره!",
+    "name": "آره محکم",
+    "emoji": "✅"
+  },
+  {
+    "id": 3,
+    "dayTimeRange": null,
+    "type": "positive",
+    "description": "معلومه داش!",
+    "name": "آره داداش",
+    "emoji": "👌"
+  },
+  {
+    "id": 4,
+    "dayTimeRange": null,
+    "type": "positive",
+    "description": "تضمینیه!",
+    "name": "قول محکم",
+    "emoji": "💯"
+  },
+  {
+    "id": 5,
+    "dayTimeRange": {
+      "startIn24": 18,
+      "endIn24": 23
+    },
+    "type": "positive",
+    "description": "امشب خیلی شانسیه!",
+    "name": "شب خوش‌شانس",
+    "emoji": "🍀"
+  },
+  {
+    "id": 6,
+    "dayTimeRange": null,
+    "type": "negative",
+    "description": "اصلاً شانسی نداره.",
+    "name": "نه محکم",
+    "emoji": "🚫"
+  },
+  {
+    "id": 7,
+    "dayTimeRange": null,
+    "type": "negative",
+    "description": "بی‌خیالش شو.",
+    "name": "ولش کن",
+    "emoji": "❌"
+  },
+  {
+    "id": 8,
+    "dayTimeRange": null,
+    "type": "negative",
+    "description": "عمراً!",
+    "name": "نه آتیشی",
+    "emoji": "🔥"
+  },
+  {
+    "id": 9,
+    "dayTimeRange": {
+      "startIn24": 22,
+      "endIn24": 24
+    },
+    "type": "negative",
+    "description": "نه داداش، امشب فقط نتفلیکسه.",
+    "name": "بلوک نتفلیکس",
+    "emoji": "📺"
+  },
+  {
+    "id": 10,
+    "dayTimeRange": null,
+    "type": "negative",
+    "description": "هیچ وقت، هیچ وقت.",
+    "name": "ابدی نه",
+    "emoji": "⛔"
+  },
+  {
+    "id": 11,
+    "dayTimeRange": null,
+    "type": "natural",
+    "description": "شاید…",
+    "name": "نامعلوم",
+    "emoji": "🤷"
+  },
+  {
+    "id": 12,
+    "dayTimeRange": null,
+    "type": "natural",
+    "description": "بعداً بپرس.",
+    "name": "بعداً شاید",
+    "emoji": "⏳"
+  },
+  {
+    "id": 13,
+    "dayTimeRange": null,
+    "type": "natural",
+    "description": "پنجاه پنجاه.",
+    "name": "نصف نصف",
+    "emoji": "⚖"
+  },
+  {
+    "id": 14,
+    "dayTimeRange": null,
+    "type": "natural",
+    "description": "هر جوری شد دیگه.",
+    "name": "شیر یا خط",
+    "emoji": "🪙"
+  },
+  {
+    "id": 15,
+    "dayTimeRange": {
+      "startIn24": 12,
+      "endIn24": 18
+    },
+    "type": "natural",
+    "description": "ظهر همیشه غیرقابل پیش‌بینیه…",
+    "name": "ظهر رندوم",
+    "emoji": "🌤"
+  },
+  {
+    "id": 16,
+    "dayTimeRange": null,
+    "type": "silly",
+    "description": "داداش الان خیلی خستم واسه جواب.",
+    "name": "مود خلسه",
+    "emoji": "🍃"
+  },
+  {
+    "id": 17,
+    "dayTimeRange": null,
+    "type": "silly",
+    "description": "برو یه ساندویچ بزن.",
+    "name": "وقت ساندویچ",
+    "emoji": "🥪"
+  },
+  {
+    "id": 18,
+    "dayTimeRange": null,
+    "type": "silly",
+    "description": "از گربت بپرس.",
+    "name": "اوراکل گربه",
+    "emoji": "🐱"
+  },
+  {
+    "id": 19,
+    "dayTimeRange": null,
+    "type": "silly",
+    "description": "جوابش اینه… سیب‌زمینی.",
+    "name": "حقیقت سیب‌زمینی",
+    "emoji": "🥔"
+  },
+  {
+    "id": 20,
+    "dayTimeRange": null,
+    "type": "silly",
+    "description": "گووووی!",
+    "name": "گووووی!",
+    "emoji": "🤪"
+  }
+]

@@ -1,6 +1,6 @@
 package com.haghpanah.goooy.data.setting.storage
 
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 
 interface SettingStorage {

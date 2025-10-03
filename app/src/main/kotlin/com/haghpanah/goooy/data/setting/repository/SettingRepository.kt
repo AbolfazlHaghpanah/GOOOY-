@@ -1,7 +1,7 @@
 package com.haghpanah.goooy.data.setting.repository
 
-import com.haghpanah.goooy.model.enums.AppLanguage
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.AppLanguage
+import com.haghpanah.goooy.model.ThemeStyle
 import kotlinx.coroutines.flow.Flow
 
 interface SettingRepository {

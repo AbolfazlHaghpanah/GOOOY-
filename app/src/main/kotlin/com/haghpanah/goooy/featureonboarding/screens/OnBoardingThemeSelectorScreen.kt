@@ -1,7 +1,6 @@
 package com.haghpanah.goooy.featureonboarding.screens
 
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -44,7 +43,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.ThemeStyle
 import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.coreui.theme.onSurfaceDark

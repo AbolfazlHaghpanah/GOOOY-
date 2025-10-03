@@ -2,7 +2,7 @@ package com.haghpanah.goooy.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.ThemeStyle
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

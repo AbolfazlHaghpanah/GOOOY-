@@ -5,7 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import com.haghpanah.goooy.model.enums.ThemeStyle
+import com.haghpanah.goooy.model.ThemeStyle
 
 private val DarkColorScheme = darkColorScheme(
     primary = primaryDark,

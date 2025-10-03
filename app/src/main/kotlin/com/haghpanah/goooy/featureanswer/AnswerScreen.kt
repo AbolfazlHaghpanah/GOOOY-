@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -15,42 +14,57 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.haghpanah.goooy.data.answers
-import kotlin.random.Random
+import com.haghpanah.goooy.model.answer.Answer
+import com.haghpanah.goooy.model.answer.AnswerType
 
 @Composable
-fun AnswerScreen(navController: NavController) {
-    val answer = remember { answers[Random.nextInt(from = 0, answers.size - 1)] }
+fun AnswerScreen(
+    navController: NavController,
+) {
+    val viewModel = hiltViewModel<AnswerViewModel>()
+    val answer by viewModel.answer.collectAsStateWithLifecycle()
 
+    if (answer != null) {
+        AnswerScreen(
+            answer = answer!!,
+            onBackPressed = { navController.navigateUp() }
+        )
+    }
+}
+
+@Composable
+private fun AnswerScreen(
+    answer: Answer,
+    onBackPressed: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .navigationBarsPadding()
             .clickable(
                 indication = null,
-                interactionSource = null
-            ) {
-                navController.navigateUp()
-            }
+                interactionSource = null,
+                onClick = onBackPressed
+            )
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
-                .background(color = answer.color)
+                .background(color = answer.getColor())
                 .statusBarsPadding()
                 .padding(
                     horizontal = 20.dp,
@@ -68,7 +82,7 @@ fun AnswerScreen(navController: NavController) {
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = stringResource(answer.contentTextId),
+                    text = answer.name,
                     color = Color.White,
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
@@ -93,7 +107,7 @@ fun AnswerScreen(navController: NavController) {
         Spacer(Modifier.weight(1f))
 
         Text(
-            text = "Tab screen for asking another question",
+            text = answer.description,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium,
         )
@@ -103,11 +117,17 @@ fun AnswerScreen(navController: NavController) {
         TextButton(
             modifier = Modifier
                 .padding(24.dp),
-            onClick = {
-                navController.navigateUp()
-            }
+            //TODo
+            onClick = onBackPressed
         ) {
             Text("Did Not Like It? Try Again")
         }
     }
+}
+
+fun Answer.getColor() = when (type) {
+    AnswerType.Positive -> Color(0xFF4CAF50)
+    AnswerType.Negative -> Color(0xFFF44336)
+    AnswerType.Silly -> Color(0xFF9C27B0)
+    AnswerType.Natural -> Color(0xFF9E9E9E)
 }
