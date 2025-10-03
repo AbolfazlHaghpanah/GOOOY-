@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -47,70 +46,71 @@ fun AnswerScreen(
 }
 
 @Composable
-private fun AnswerScreen(
+fun AnswerScreen(
     answer: Answer,
     onBackPressed: () -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .navigationBarsPadding()
+            .systemBarsPadding()
             .clickable(
                 indication = null,
                 interactionSource = null,
                 onClick = onBackPressed
             )
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(horizontal = 24.dp, vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .background(color = answer.getColor())
-                .statusBarsPadding()
-                .padding(
-                    horizontal = 20.dp,
-                    vertical = 64.dp
-                )
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .clip(MaterialTheme.shapes.medium)
+                .fillMaxWidth()
+                .background(answer.getColor())
+                .padding(24.dp)
         ) {
-            Row(
+            Text(
                 modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = answer.name,
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                )
+                    .weight(1f),
+                text = answer.name,
+                color = Color.White,
+                style = MaterialTheme.typography.displayMedium,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start
+            )
 
-                Spacer(modifier = Modifier.width(24.dp))
-
-                Text(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(Color.White)
-                        .padding(24.dp),
-                    text = answer.emoji,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.displayMedium,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.End
-                )
-            }
+            Spacer(modifier = Modifier.width(64.dp))
         }
 
-        Spacer(Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = answer.description,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .weight(1f)
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                    .padding(vertical = 48.dp, horizontal = 28.dp),
+                text = answer.description,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.headlineSmall,
+            )
+
+            Text(
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                    .padding(vertical = 16.dp, horizontal = 28.dp),
+                text = answer.emoji,
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.displayLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
 
         Spacer(Modifier.weight(1f))
 

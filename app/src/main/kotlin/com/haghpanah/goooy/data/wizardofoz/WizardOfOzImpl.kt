@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import java.util.Date
 import javax.inject.Inject
+import kotlin.random.Random
 
 class WizardOfOzImpl @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -23,7 +24,7 @@ class WizardOfOzImpl @Inject constructor(
 
         val answers = loadAnswers()
 
-        return answers.first()
+        return answers[Random.nextInt(from = 0, answers.size - 1)]
     }
 
     override fun decreaseAnswerWeight(answerId: Int) {

@@ -6,32 +6,32 @@
       "endIn24": 12
     },
     "type": "positive",
-    "description": "The sun is shining, and so should you!",
     "name": "Morning Glory",
+    "description": "The sun is shining, rise up champ—today’s all yours!",
     "emoji": "☀"
   },
   {
     "id": 2,
     "dayTimeRange": null,
     "type": "positive",
-    "description": "Yes, absolutely!",
     "name": "No Doubts",
+    "description": "Yes, absolutely—don’t even think twice about it.",
     "emoji": "✅"
   },
   {
     "id": 3,
     "dayTimeRange": null,
     "type": "positive",
-    "description": "For sure bro!",
     "name": "Chill Yes",
+    "description": "For sure bro, relax and go with the flow.",
     "emoji": "👌"
   },
   {
     "id": 4,
     "dayTimeRange": null,
     "type": "positive",
-    "description": "It’s guaranteed!",
     "name": "Big Promise",
+    "description": "This one’s a guarantee—bet your sandwich on it.",
     "emoji": "💯"
   },
   {
@@ -41,32 +41,32 @@
       "endIn24": 23
     },
     "type": "positive",
-    "description": "Tonight feels lucky!",
     "name": "Lucky Night",
+    "description": "Tonight the stars align—things are looking good.",
     "emoji": "🍀"
   },
   {
     "id": 6,
     "dayTimeRange": null,
     "type": "negative",
-    "description": "No chance, dude.",
     "name": "Hard No",
+    "description": "Nope. Not happening. Don’t waste your energy.",
     "emoji": "🚫"
   },
   {
     "id": 7,
     "dayTimeRange": null,
     "type": "negative",
-    "description": "Forget it.",
     "name": "Forget It",
+    "description": "Forget it, dude. There are better things to do.",
     "emoji": "❌"
   },
   {
     "id": 8,
     "dayTimeRange": null,
     "type": "negative",
-    "description": "Hell no!",
     "name": "Hell No",
+    "description": "Hell no! That’s a one-way ticket to regret.",
     "emoji": "🔥"
   },
   {
@@ -76,48 +76,48 @@
       "endIn24": 24
     },
     "type": "negative",
-    "description": "Not tonight, Netflix is calling.",
     "name": "Netflix Block",
+    "description": "Not tonight, man—Netflix is way more important.",
     "emoji": "📺"
   },
   {
     "id": 10,
     "dayTimeRange": null,
     "type": "negative",
-    "description": "Never ever.",
     "name": "Eternal No",
+    "description": "Never ever in a million years. Nope.",
     "emoji": "⛔"
   },
   {
     "id": 11,
     "dayTimeRange": null,
     "type": "natural",
-    "description": "Maybe…",
     "name": "Unclear",
+    "description": "Maybe… the universe is still buffering.",
     "emoji": "🤷"
   },
   {
     "id": 12,
     "dayTimeRange": null,
     "type": "natural",
-    "description": "Ask again later.",
     "name": "Later Maybe",
+    "description": "Ask again later—right now the vibes are mixed.",
     "emoji": "⏳"
   },
   {
     "id": 13,
     "dayTimeRange": null,
     "type": "natural",
-    "description": "50/50 chance.",
     "name": "Half Half",
+    "description": "It’s fifty-fifty, flip a coin and see.",
     "emoji": "⚖"
   },
   {
     "id": 14,
     "dayTimeRange": null,
     "type": "natural",
-    "description": "Could go either way.",
     "name": "Coin Toss",
+    "description": "Could go either way—just like a coin in the air.",
     "emoji": "🪙"
   },
   {
@@ -127,48 +127,48 @@
       "endIn24": 18
     },
     "type": "natural",
-    "description": "Afternoon is unpredictable…",
     "name": "Random Noon",
+    "description": "Afternoons are unpredictable—you’ll see what happens.",
     "emoji": "🌤"
   },
   {
     "id": 16,
     "dayTimeRange": null,
     "type": "silly",
-    "description": "I’m too high for this.",
     "name": "Stoner Mood",
+    "description": "Bro, I’m way too high for this question.",
     "emoji": "🍃"
   },
   {
     "id": 17,
     "dayTimeRange": null,
     "type": "silly",
-    "description": "Go eat a sandwich.",
     "name": "Snack Time",
+    "description": "The answer is simple: go grab a sandwich.",
     "emoji": "🥪"
   },
   {
     "id": 18,
     "dayTimeRange": null,
     "type": "silly",
-    "description": "Ask your cat.",
     "name": "Cat Oracle",
+    "description": "Ask your cat—he knows more than me.",
     "emoji": "🐱"
   },
   {
     "id": 19,
     "dayTimeRange": null,
     "type": "silly",
-    "description": "The answer is… potato.",
     "name": "Potato Truth",
+    "description": "The universe whispers… potato.",
     "emoji": "🥔"
   },
   {
     "id": 20,
     "dayTimeRange": null,
     "type": "silly",
-    "description": "GOOOOY!",
     "name": "GOOOOY!",
+    "description": "GOOOOY! The only answer you’ll ever need.",
     "emoji": "🤪"
   }
 ]
