@@ -1,13 +1,10 @@
 package com.haghpanah.goooy.data.wizardofoz
 
 import android.content.Context
-import android.content.res.AssetManager
-import androidx.compose.material3.TimePicker
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.answer.Answer
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.combineTransform
 import kotlinx.serialization.json.Json
 import java.util.Date
 import javax.inject.Inject
@@ -19,7 +16,7 @@ class WizardOfOzImpl @Inject constructor(
 ) : WizardOfOz {
     val blockedAnswers = setOf<Answer>()
     var lateAnswer: Answer? = null
-    private var cachedAnswers: List<Answer> = listOf()
+    private var cachedAnswersWithLocal: Pair<AppLanguage, List<Answer>>? = null
 
     override fun getAnswer(): Answer {
         val currentTimeIn24 = Date(System.currentTimeMillis()).time
@@ -34,21 +31,24 @@ class WizardOfOzImpl @Inject constructor(
     }
 
     fun loadAnswers(): List<Answer> {
-        if (cachedAnswers.isNotEmpty()) {
-            return cachedAnswers
-        }
-
         val currentLocale = settingRepository.getCurrentLanguage()
             ?: AppLanguage.getDefault()
+        val cachedLocale = cachedAnswersWithLocal?.first
+        val cachedAnswers = cachedAnswersWithLocal?.second
+        if (!cachedAnswers.isNullOrEmpty() && currentLocale == cachedLocale) {
+            return cachedAnswers
+        }
 
         val answersJson = context.assets
             .open("answers/answers-${currentLocale.tag}.json")
             .bufferedReader()
             .readText()
 
-        cachedAnswers = json.decodeFromString(answersJson)
+        cachedAnswersWithLocal = currentLocale to json.decodeFromString(answersJson)
 
-        return cachedAnswers
+        return requireNotNull(cachedAnswersWithLocal?.second) {
+            "Suddenly cachedAnswersWithLocal become null :("
+        }
     }
 
     private fun calculateWeights(answers: List<Answer>) {
