@@ -11,10 +11,10 @@ data class Answer(
     val name: String,
     val emoji: String,
 ) {
-    var weight: Float = when (type) {
-        AnswerType.Positive -> 1f
-        AnswerType.Negative -> 1f
-        AnswerType.Silly -> 0.1f
-        AnswerType.Natural -> 0.3f
+    var weight: Int = when (type) {
+        AnswerType.Positive -> 10
+        AnswerType.Negative -> 10
+        AnswerType.Silly -> 1
+        AnswerType.Natural -> 3
     }
 }

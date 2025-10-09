@@ -1,34 +1,75 @@
 package com.haghpanah.goooy.data.wizardofoz
 
 import android.content.Context
+import android.util.Log
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.extention.applyWeightingRules
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.AllNegative
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.AllPositive
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.BlockedOnes
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.DontBeNormal
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.MatchesTime
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NoStupidity
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotTheSameAnswer
 import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.answer.Answer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
-import java.util.Date
 import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.properties.Delegates
 import kotlin.random.Random
 
+@Singleton
 class WizardOfOzImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settingRepository: SettingRepository,
     private val json: Json,
 ) : WizardOfOz {
-    val blockedAnswers = setOf<Answer>()
-    var lateAnswer: Answer? = null
-    private var cachedAnswersWithLocal: Pair<AppLanguage, List<Answer>>? = null
+    private var cachedAnswersWithLocal: Pair<AppLanguage, List<Answer>>? by Delegates
+        .observable(
+            null
+        ) { _, _, newValue ->
+            currentAnswers.removeAll { true }
+            currentAnswers.addAll(newValue?.second.orEmpty())
+        }
 
-    override fun getAnswer(): Answer {
-        val currentTimeIn24 = Date(System.currentTimeMillis()).time
+    private val currentAnswers: MutableList<Answer> = mutableListOf()
+    private val seenAnswers: MutableList<Int> = mutableListOf()
+    private val blockedAnswers: MutableList<Int> = mutableListOf()
 
-        val answers = loadAnswers()
-
-        return answers[Random.nextInt(from = 0, answers.size - 1)]
+    init {
+        loadAnswers()
     }
 
-    override fun decreaseAnswerWeight(answerId: Int) {
-        //TODO
+    override suspend fun getAnswer(): Answer {
+        val weightedAnswers = currentAnswers
+            .applyWeightingRules(
+                listOf(
+                    MatchesTime(),
+                    AllNegative(),
+                    AllPositive(),
+                    NoStupidity(),
+                    DontBeNormal(),
+                    NotTheSameAnswer(seenAnswers),
+                    BlockedOnes(blockedAnswers),
+                )
+            )
+            .map { answer ->
+                List(answer.weight) {
+                    answer
+                }
+            }.flatMap {
+                it
+            }
+
+        return weightedAnswers[Random.nextInt(from = 0, weightedAnswers.size - 1)].also {
+            seenAnswers.add(it.id)
+        }
+    }
+
+    override suspend fun decreaseAnswerWeight(answerId: Int) {
+        blockedAnswers.add(answerId)
     }
 
     fun loadAnswers(): List<Answer> {
@@ -63,3 +104,4 @@ class WizardOfOzImpl @Inject constructor(
     companion object {
     }
 }
+
