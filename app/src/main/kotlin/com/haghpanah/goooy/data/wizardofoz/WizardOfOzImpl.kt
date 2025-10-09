@@ -10,6 +10,7 @@ import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.BlockedOnes
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.DontBeNormal
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.MatchesTime
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NoStupidity
+import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotMatchTime
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotTheSameAnswer
 import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.answer.Answer
@@ -53,6 +54,7 @@ class WizardOfOzImpl @Inject constructor(
                     DontBeNormal(),
                     NotTheSameAnswer(seenAnswers),
                     BlockedOnes(blockedAnswers),
+                    NotMatchTime(),
                 )
             )
             .map { answer ->
