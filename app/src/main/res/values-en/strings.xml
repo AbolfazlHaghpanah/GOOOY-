@@ -1,27 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GOOOY!</string>
     <string name="label_goooy">GOOOY</string>
-    <string name="message_hold_to_get_answer">Hold the screen, and I’ll drop the truth.</string>
-    <string name="message_hold_more_hint_1">You’ve dropped to soon!</string>
-    <string name="message_hold_more_hint_2">I’ll tell you when you should release</string>
-    <string name="message_hold_more_hint_3">You are not a patient one at all.</string>
-    <string name="label_hold_still">Hold Still</string>
+    <string name="message_hold_to_get_answer">Ask your question, then hold me to get your answer.</string>
+    <string name="message_hold_more_hint_1">Whoa, too quick there buddy!</string>
+    <string name="message_hold_more_hint_2">Hold your finger a bit longer, I’m getting there!</string>
+    <string name="message_hold_more_hint_3">You can’t just tap me for 0.02 seconds and expect wisdom!</string>
+    <string name="label_hold_still">Hold</string>
     <string name="label_release">Release</string>
-    <string name="message_intorduction_description">Can’t decide? Let GOOOY! mess with your fate. \nTap in, and see what destiny (or a potato) says.</string>
+    <string name="message_intorduction_description">
+Feels like you’re calling upon a higher light — a wise one who knows what you’re about to face.\n
+From now on, just say “Gooooy!” to Gooooy, the all-knowing light of wisdom and guidance.
+</string>
     <string name="label_continue">Continue</string>
-    <string name="label_select_language">Pick a language, dude:</string>
-    <string name="label_lets_go">Let’s Go</string>
-    <string name="message_theme_selector_message">Who do you ask for the mar</string>
+    <string name="label_lets_go">Let’s go!</string>
+    <string name="message_theme_selector_message">For example, when you’re not sure if that person’s “the one”… or even if you should go out for dinner tonight or not.</string>
     <string name="label_dark">Dark</string>
     <string name="label_light">Light</string>
-    <string name="label_system_default">System Default</string>
-    <string name="label_chose_your_theme">Chose your Theme</string>
-    <string name="label_did_not_liked_the_answer">Didn’t Liked the answer?</string>
-    <string name="message_blocked_and_seen_once">میدونم گفتی باهاش حال نکردی ولی تقدیر اینو میگه</string>
-    <string name="message_blocked_but_seen_twice">حاجی بخدا من تمام تلاشمو میکنم اینو دیگه نشونت ندم ولی تلسم شدی</string>
-    <string name="message_blocked_but_seen_multiple_time">این دیگه عجیبه به نظرم باهاش کنار بیا</string>
-    <string name="message_seen_twice">داره عجیب میشه دوباره اینو داری میبینی</string>
-    <string name="message_seen_answer_multipletime">وااو دوباره این جواب حتما پا پیچیت شده</string>
-    <string name="message_seen_answer_many_time">بخدا نمیدونم چیکار می کنی که انقد این جوابو میبینی</string>
+    <string name="label_system_default">Same as phone</string>
+    <string name="label_select_language">Now tell me — what language should I talk to you in?</string>
+    <string name="label_chose_your_theme">And what color vibe do you want for the app?</string>
+    <string name="label_did_not_liked_the_answer">Didn’t like my answer</string>
+    <string name="message_blocked_and_seen_once">I get it, you didn’t like it — but destiny says otherwise.</string>
+    <string name="message_blocked_but_seen_twice">Bro, I swear I’m trying not to show this again… but it’s like you’re cursed!</string>
+    <string name="message_blocked_but_seen_multiple_time">Okay this is getting weird — maybe just accept it already.</string>
+    <string name="message_seen_twice">Huh, seeing this again? That’s suspicious…</string>
+    <string name="message_seen_answer_multipletime">Wow, this answer really has you hooked!</string>
+    <string name="message_seen_answer_many_time">Honestly, I’ve got no idea how you keep ending up with the same answer!</string>
 </resources>
