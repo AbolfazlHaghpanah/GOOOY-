@@ -70,11 +70,12 @@ fun OnBoardingThemeSelectorScreen(
             },
             animatedContentScope = animatedContentScope,
             onContinue = {
-                //TODO Mark into as viewed
-                navController.navigate(GOOOYScreens.Intention) {
-                    launchSingleTop = true
-                    popUpTo(GOOOYScreens.Intention) {
-                        inclusive = true
+                viewModel.markIntroSeen {
+                    navController.navigate(GOOOYScreens.Intention) {
+                        launchSingleTop = true
+                        popUpTo(GOOOYScreens.Intention) {
+                            inclusive = true
+                        }
                     }
                 }
             }
