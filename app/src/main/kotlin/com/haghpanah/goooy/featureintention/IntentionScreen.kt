@@ -144,7 +144,7 @@ fun IntentionScreen(
                         vibrator.vibrate(
                             VibrationEffect.startComposition().addPrimitive(
                                 VibrationEffect.Composition.PRIMITIVE_QUICK_FALL,
-                                0.8f
+                                0.5f
                             ).compose()
                         )
                     }
@@ -167,7 +167,7 @@ fun IntentionScreen(
                     vibrator.vibrate(
                         VibrationEffect.startComposition().addPrimitive(
                             VibrationEffect.Composition.PRIMITIVE_QUICK_RISE,
-                            0.8f
+                            0.5f
                         ).compose()
                     )
                 }

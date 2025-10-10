@@ -1,5 +1,8 @@
 package com.haghpanah.goooy.featureanswer
 
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -35,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -52,6 +56,8 @@ import com.haghpanah.goooy.model.AnswerType
 fun AnswerScreen(
     navController: NavController,
 ) {
+    val context = LocalContext.current
+    val vibrator = context.getSystemService(Vibrator::class.java)
     val viewModel = hiltViewModel<AnswerViewModel>()
     val answer by viewModel.answer.collectAsStateWithLifecycle()
     var circleRadius by remember { mutableFloatStateOf(2500f) }
@@ -62,6 +68,7 @@ fun AnswerScreen(
             stiffness = Spring.StiffnessVeryLow,
         )
     )
+
     val isCircleVisible by remember {
         derivedStateOf {
             animatedRadios >= 2300f
@@ -90,6 +97,14 @@ fun AnswerScreen(
             answerResult = answer!!,
             onBackPressed = { navController.navigateUp() },
             onDidNotLikeAnswerClicked = {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    vibrator.vibrate(
+                        VibrationEffect.startComposition().addPrimitive(
+                            VibrationEffect.Composition.PRIMITIVE_SLOW_RISE,
+                            0.5f
+                        ).compose()
+                    )
+                }
                 hasClickedOnBlock = true
                 circleRadius = 2500f
             },
