@@ -200,7 +200,6 @@ fun IntentionScreen(
                     launchSingleTop = true
                 }
             },
-            canShowSetting = soonReleasedCounter != 0
         )
     }
 }
@@ -211,7 +210,6 @@ private fun SharedTransitionScope.IntentionScreen(
     circleRadius: Float,
     @StringRes hintTextId: Int,
     currentGestureState: IntentionGestureState,
-    canShowSetting: Boolean,
     onNavigateToOnBoarding: () -> Unit,
     onGestureStateChanged: (IntentionGestureState) -> Unit,
 ) {
@@ -344,7 +342,7 @@ private fun SharedTransitionScope.IntentionScreen(
                 .statusBarsPadding()
                 .padding(4.dp)
                 .align(Alignment.TopEnd),
-            visible = currentGestureState == Idle && canShowSetting,
+            visible = currentGestureState == Idle,
             enter = fadeIn(tween(500)),
             exit = fadeOut(tween(200))
         ) {
