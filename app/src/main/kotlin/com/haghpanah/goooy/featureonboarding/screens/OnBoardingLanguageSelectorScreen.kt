@@ -61,9 +61,6 @@ fun OnBoardingLanguageSelectorScreen(
             onContinue = {
                 navController.navigate(GOOOYScreens.OnBoardingThemeSelector) {
                     launchSingleTop = true
-                    popUpTo(GOOOYScreens.Intention) {
-                        inclusive = true
-                    }
                 }
             }
         )
