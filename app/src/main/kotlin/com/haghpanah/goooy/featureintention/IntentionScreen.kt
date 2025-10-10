@@ -260,6 +260,8 @@ private fun SharedTransitionScope.IntentionScreen(
                             Spacer(modifier = Modifier.height(48.dp))
 
                             Text(
+                                modifier = Modifier.padding(horizontal = 24.dp),
+                                textAlign = TextAlign.Center,
                                 text = stringResource(hintTextId),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 style = MaterialTheme.typography.bodyMedium,
