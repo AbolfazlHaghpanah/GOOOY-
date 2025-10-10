@@ -1,5 +1,8 @@
 package com.haghpanah.goooy.featureintention
 
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
@@ -44,6 +47,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,6 +58,7 @@ import androidx.navigation.NavController
 import com.haghpanah.goooy.R
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.featureintention.IntentionGestureState.Idle
+import com.haghpanah.goooy.featureintention.IntentionGestureState.OnHoldNotReady
 import kotlinx.coroutines.delay
 
 @Composable
@@ -62,6 +67,7 @@ fun IntentionScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
 ) {
+    val context = LocalContext.current
     var currentGestureState by remember { mutableStateOf(Idle) }
     var circleRadius by remember { mutableFloatStateOf(0f) }
     var soonReleasedCounter by remember { mutableIntStateOf(0) }
@@ -92,6 +98,8 @@ fun IntentionScreen(
     )
     val navigationThreshold = remember { 700 }
 
+    val vibrator = context.getSystemService(Vibrator::class.java)
+
     LaunchedEffect(currentGestureState) {
         when (currentGestureState) {
             Idle -> {
@@ -99,13 +107,22 @@ fun IntentionScreen(
             }
 
             IntentionGestureState.Pressed -> {
+
                 circleRadius = 50f
-                currentGestureState = IntentionGestureState.OnHoldNotReady
+                currentGestureState = OnHoldNotReady
             }
 
-            IntentionGestureState.OnHoldNotReady -> {
+            OnHoldNotReady -> {
                 while (true) {
                     delay(70)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        vibrator.vibrate(
+                            VibrationEffect.startComposition().addPrimitive(
+                                VibrationEffect.Composition.PRIMITIVE_LOW_TICK,
+                                animatedRadios / 700
+                            ).compose()
+                        )
+                    }
                     if (circleRadius >= navigationThreshold) {
                         currentGestureState = IntentionGestureState.OnHoldReady
                     } else {
@@ -115,8 +132,24 @@ fun IntentionScreen(
             }
 
             IntentionGestureState.OnHoldReady -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        vibrator.vibrate(
+                            VibrationEffect.startComposition().addPrimitive(
+                                VibrationEffect.Composition.PRIMITIVE_THUD,
+                                1f
+                            ).compose()
+                        )
+                    } else {
+                        vibrator.vibrate(
+                            VibrationEffect.startComposition().addPrimitive(
+                                VibrationEffect.Composition.PRIMITIVE_QUICK_FALL,
+                                0.8f
+                            ).compose()
+                        )
+                    }
+                }
                 var shouldAdd = false
-
                 while (true) {
                     delay(10)
                     if (!shouldAdd) {
@@ -130,6 +163,15 @@ fun IntentionScreen(
             }
 
             IntentionGestureState.Released -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    vibrator.vibrate(
+                        VibrationEffect.startComposition().addPrimitive(
+                            VibrationEffect.Composition.PRIMITIVE_QUICK_RISE,
+                            0.8f
+                        ).compose()
+                    )
+                }
+
                 if (circleRadius >= navigationThreshold - 150f) {
                     circleRadius = 2500f
                     delay(200)
@@ -269,7 +311,7 @@ private fun SharedTransitionScope.IntentionScreen(
                         }
                     }
 
-                    IntentionGestureState.Pressed, IntentionGestureState.OnHoldNotReady -> {
+                    IntentionGestureState.Pressed, OnHoldNotReady -> {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             text = stringResource(R.string.label_hold_still),
