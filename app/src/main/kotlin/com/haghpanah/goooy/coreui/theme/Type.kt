@@ -3,9 +3,10 @@ package com.haghpanah.goooy.coreui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.sp
 import com.haghpanah.goooy.R
 
- val Typography = Typography(
+val Typography = Typography(
     displayLarge = Typography().displayLarge
         .copy(
             fontFamily = FontFamily(
@@ -40,7 +41,8 @@ import com.haghpanah.goooy.R
         .copy(
             fontFamily = FontFamily(
                 fonts = listOf(Font(R.font.iran_sans_bold))
-            )
+            ),
+            lineHeight = 36.sp
         ),
     titleLarge = Typography().titleLarge
         .copy(
@@ -64,7 +66,8 @@ import com.haghpanah.goooy.R
         .copy(
             fontFamily = FontFamily(
                 fonts = listOf(Font(R.font.iran_sans_medium))
-            )
+            ),
+            lineHeight = 26.sp
         ),
     bodyLarge = Typography().bodyLarge
         .copy(

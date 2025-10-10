@@ -1,7 +1,6 @@
 package com.haghpanah.goooy.data.wizardofoz
 
 import android.content.Context
-import android.util.Log
 import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.extention.applyWeightingRules
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.AllNegative
@@ -12,8 +11,8 @@ import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.MatchesTime
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NoStupidity
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotMatchTime
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotTheSameAnswer
-import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.Answer
+import com.haghpanah.goooy.model.AppLanguage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -66,7 +65,6 @@ class WizardOfOzImpl @Inject constructor(
             }
             .shuffled()
 
-        Log.d("mmd", "getAnswer: $weightedAnswers")
         return weightedAnswers[Random.nextInt(from = 0, weightedAnswers.size - 1)].also {
             seenAnswerIds.add(it.id)
         }

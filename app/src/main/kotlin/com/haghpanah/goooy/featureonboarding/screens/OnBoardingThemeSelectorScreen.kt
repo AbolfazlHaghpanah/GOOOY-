@@ -43,8 +43,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.model.ThemeStyle
-import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.coreui.theme.onSurfaceDark
 import com.haghpanah.goooy.coreui.theme.onSurfaceLight
@@ -52,6 +50,8 @@ import com.haghpanah.goooy.coreui.theme.surfaceContainerDark
 import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestDark
 import com.haghpanah.goooy.coreui.theme.surfaceContainerHighestLight
 import com.haghpanah.goooy.coreui.theme.surfaceContainerLight
+import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
+import com.haghpanah.goooy.model.ThemeStyle
 
 @Composable
 fun OnBoardingThemeSelectorScreen(
@@ -149,12 +149,12 @@ private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
             ) {
                 Text(
                     text = stringResource(R.string.label_chose_your_theme),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
                 ThemeStyle.entries.forEach {
                     val isSelectedTransaction = updateTransition(

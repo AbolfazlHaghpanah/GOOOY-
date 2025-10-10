@@ -21,8 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -58,6 +60,14 @@ fun AnswerScreen(
             stiffness = Spring.StiffnessVeryLow,
         )
     )
+    val isCircleVisible by remember {
+        derivedStateOf {
+            animatedRadios >= 2300f
+        }
+    }
+    var hasClickedOnBlock by remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(answer) {
         if (answer != null) {
@@ -65,8 +75,8 @@ fun AnswerScreen(
         }
     }
 
-    LaunchedEffect(animatedRadios) {
-        if (animatedRadios >= 2300f) {
+    LaunchedEffect(isCircleVisible) {
+        if (isCircleVisible && hasClickedOnBlock) {
             viewModel.onDidNotLikeTheAnswerClicked {
                 viewModel.getAnswer()
             }
@@ -78,6 +88,7 @@ fun AnswerScreen(
             answerResult = answer!!,
             onBackPressed = { navController.navigateUp() },
             onDidNotLikeAnswerClicked = {
+                hasClickedOnBlock = true
                 circleRadius = 2500f
             },
             circleRadius = animatedRadios,
@@ -123,7 +134,7 @@ fun AnswerScreen(
                 .fillMaxWidth()
                 .background(answerResult.answer.getColor())
                 .padding(24.dp)
-                .offset(circleRadius.dp/300)
+                .offset(circleRadius.dp / 300)
         ) {
             Text(
                 modifier = Modifier
@@ -147,7 +158,7 @@ fun AnswerScreen(
         ) {
             Text(
                 modifier = Modifier
-                    .offset(x = circleRadius.dp/300, y =  circleRadius.dp/100)
+                    .offset(x = circleRadius.dp / 300, y = circleRadius.dp / 100)
                     .clip(MaterialTheme.shapes.medium)
                     .weight(1f)
                     .background(MaterialTheme.colorScheme.surfaceContainer)
@@ -159,7 +170,7 @@ fun AnswerScreen(
 
             Text(
                 modifier = Modifier
-                    .offset(y = circleRadius.dp/100)
+                    .offset(y = circleRadius.dp / 100)
                     .clip(MaterialTheme.shapes.medium)
                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
                     .padding(vertical = 16.dp, horizontal = 28.dp),
@@ -167,6 +178,28 @@ fun AnswerScreen(
                 color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.displayLarge,
                 fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
+
+        Spacer(Modifier.weight(1f))
+
+        val answerRepeatReason: String? = when {
+            answerResult.isBlocked && answerResult.seenCount == 2 -> stringResource(R.string.message_blocked_and_seen_once)
+            answerResult.isBlocked && answerResult.seenCount in 2..4 -> stringResource(R.string.message_blocked_but_seen_twice)
+            answerResult.isBlocked && answerResult.seenCount > 4 -> stringResource(R.string.message_blocked_but_seen_multiple_time)
+            answerResult.seenCount == 2 -> stringResource(R.string.message_seen_twice)
+            answerResult.seenCount in 2..4 -> stringResource(R.string.message_seen_answer_multipletime)
+            answerResult.seenCount > 4 -> stringResource(R.string.message_seen_answer_many_time)
+            else -> null
+        }
+
+        if (answerRepeatReason != null) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = answerRepeatReason,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
         }

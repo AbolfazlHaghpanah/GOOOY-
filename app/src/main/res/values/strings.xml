@@ -1,33 +1,4 @@
 <resources>
-    <!-- Positive -->
-    <string name="ans_yes_absolutely">آره داداش!</string>
-    <string name="ans_for_sure_bro">صد در صد رفیق.</string>
-    <string name="ans_its_happening">حتما میشه.</string>
-    <string name="ans_no_doubts">شک نکن دادا.</string>
-    <string name="ans_guaranteed">قطعی داداش.</string>
-
-    <!-- Negative -->
-    <string name="ans_no_chance">نه بابا، محاله.</string>
-    <string name="ans_forget_it">بیخیالش شو.</string>
-    <string name="ans_hell_no">اصلا نه!</string>
-    <string name="ans_never_ever">هیچوقت داداش.</string>
-    <string name="ans_not_today">امروز نه داش.</string>
-
-    <!-- Neutral -->
-    <string name="ans_maybe">شاید… کی می‌دونه.</string>
-    <string name="ans_ask_again_later">بعداً بپرس داداش.</string>
-    <string name="ans_unclear">یه جوری گنگه.</string>
-    <string name="ans_fifty_fifty">پنجاه پنجاه، شیر یا خط.</string>
-    <string name="ans_could_go_either_way">ممکنه این بشه، ممکنه اون بشه.</string>
-
-    <!-- Silly -->
-    <string name="ans_too_high">داداش من حال ندارم جواب بدم.</string>
-    <string name="ans_sandwich">برو یه ساندویچ بزن.</string>
-    <string name="ans_ask_cat">از گربت بپرس نه من.</string>
-    <string name="ans_potato">جواب… سیب‌زمینیه.</string>
-    <string name="ans_gooooy">گووووی!</string>
-
-    <!-- App Meta -->
     <string name="app_name">گووووی!</string>
     <string name="label_goooy">گووووی</string>
     <string name="message_hold_to_get_answer">وقتی سوالت رو پرسیدی، لمسم کن تا جوابتو بگیری</string>
@@ -36,14 +7,23 @@
     <string name="message_hold_more_hint_3">برای گرفتن جواب نمیتونی دو صدم ثانیه لمسم کنی؟</string>
     <string name="label_hold_still">نگه دار</string>
     <string name="label_release">ول کن</string>
-    <string name="message_intorduction_description">نمیدونی چیکار کنی؟ بده دست گووووی! \nاین اپلیکیشن یه چیزی میگه… یا سرنوشتت رو عوض می‌کنه یا یه سیب‌زمینی میده دستت.</string>
+    <string name="message_intorduction_description">
+انگار میخوای یک نور والا بهت راهنمایی بده و گرفتن اون تصمیم رو به اون واگذار کنی، یکی که بدونه با چی قراره دست و پنجه نرم کنی.\n
+از الان به بعد بیا و بگووووی به گووووی. چون اون نور والا و پر از دانش و خرد می باشد.
+</string>
     <string name="label_continue">ادامه</string>
     <string name="label_lets_go">بزن بریم</string>
-    <string name="message_theme_selector_message">در نظر بگیر میخوای ازدواج کنی.\n از کی میپرسی طرفت به دردت میخوره یا نه؟ از من دیگه</string>
+    <string name="message_theme_selector_message">به عنوان مثال وقتی میخوای ازدواج کنی نمیدونی طرف مقابل به دردت میخوره یا نه. یا حتی تصمیم اینکه شام بری فلان جا یا نه.</string>
     <string name="label_dark">سیاه</string>
     <string name="label_light">سفید</string>
     <string name="label_system_default">همون روی گوشی</string>
-    <string name="label_select_language">زبونتو انتخاب کن:</string>
-    <string name="label_chose_your_theme">زمینه برنامه جه شکلی باشه.</string>
+    <string name="label_select_language">حالا بگو با چه زبونی باهات صحبت بشه:</string>
+    <string name="label_chose_your_theme">و اینکه دوست داری تم برنامه چه رنگی باشه:</string>
     <string name="label_did_not_liked_the_answer">با جوابت حال نکردم</string>
+    <string name="message_blocked_and_seen_once">میدونم گفتی باهاش حال نکردی ولی تقدیر اینو میگه</string>
+    <string name="message_blocked_but_seen_twice">حاجی بخدا من تمام تلاشمو میکنم اینو دیگه نشونت ندم ولی تلسم شدی</string>
+    <string name="message_blocked_but_seen_multiple_time">این دیگه عجیبه به نظرم باهاش کنار بیا</string>
+    <string name="message_seen_twice">داره عجیب میشه دوباره اینو داری میبینی</string>
+    <string name="message_seen_answer_multipletime">وااو دوباره این جواب حتما پا پیچیت شده</string>
+    <string name="message_seen_answer_many_time">بخدا نمیدونم چیکار می کنی که انقد این جوابو میبینی</string>
 </resources>
