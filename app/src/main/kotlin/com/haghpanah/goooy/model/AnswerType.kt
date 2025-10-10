@@ -1,4 +1,4 @@
-package com.haghpanah.goooy.model.answer
+package com.haghpanah.goooy.model
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

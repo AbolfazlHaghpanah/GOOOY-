@@ -45,4 +45,5 @@
     <string name="label_system_default">همون روی گوشی</string>
     <string name="label_select_language">زبونتو انتخاب کن:</string>
     <string name="label_chose_your_theme">زمینه برنامه جه شکلی باشه.</string>
+    <string name="label_did_not_liked_the_answer">با جوابت حال نکردم</string>
 </resources>

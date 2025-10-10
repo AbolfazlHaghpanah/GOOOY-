@@ -13,7 +13,7 @@ import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NoStupidity
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotMatchTime
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.rules.NotTheSameAnswer
 import com.haghpanah.goooy.model.AppLanguage
-import com.haghpanah.goooy.model.answer.Answer
+import com.haghpanah.goooy.model.Answer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -36,14 +36,14 @@ class WizardOfOzImpl @Inject constructor(
         }
 
     private val currentAnswers: MutableList<Answer> = mutableListOf()
-    private val seenAnswers: MutableList<Int> = mutableListOf()
-    private val blockedAnswers: MutableList<Int> = mutableListOf()
+    override val seenAnswerIds: MutableList<Int> = mutableListOf()
+    override val blockedAnswerIds: MutableList<Int> = mutableListOf()
 
     init {
         loadAnswers()
     }
 
-    override suspend fun getAnswer(): Answer {
+    override fun getAnswer(): Answer {
         val weightedAnswers = currentAnswers
             .applyWeightingRules(
                 listOf(
@@ -52,8 +52,8 @@ class WizardOfOzImpl @Inject constructor(
                     AllPositive(),
                     NoStupidity(),
                     DontBeNormal(),
-                    NotTheSameAnswer(seenAnswers),
-                    BlockedOnes(blockedAnswers),
+                    NotTheSameAnswer(seenAnswerIds),
+                    BlockedOnes(blockedAnswerIds),
                     NotMatchTime(),
                 )
             )
@@ -64,14 +64,16 @@ class WizardOfOzImpl @Inject constructor(
             }.flatMap {
                 it
             }
+            .shuffled()
 
+        Log.d("mmd", "getAnswer: $weightedAnswers")
         return weightedAnswers[Random.nextInt(from = 0, weightedAnswers.size - 1)].also {
-            seenAnswers.add(it.id)
+            seenAnswerIds.add(it.id)
         }
     }
 
-    override suspend fun decreaseAnswerWeight(answerId: Int) {
-        blockedAnswers.add(answerId)
+    override fun addAnswerToBlockedList(answerId: Int) {
+        blockedAnswerIds.add(answerId)
     }
 
     fun loadAnswers(): List<Answer> {
@@ -93,17 +95,6 @@ class WizardOfOzImpl @Inject constructor(
         return requireNotNull(cachedAnswersWithLocal?.second) {
             "Suddenly cachedAnswersWithLocal become null :("
         }
-    }
-
-    private fun calculateWeights(answers: List<Answer>) {
-
-    }
-
-    private fun decreaseAnswerPoint() {
-
-    }
-
-    companion object {
     }
 }
 

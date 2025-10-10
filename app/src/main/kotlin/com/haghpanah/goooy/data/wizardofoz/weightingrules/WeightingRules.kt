@@ -1,6 +1,6 @@
 package com.haghpanah.goooy.data.wizardofoz.weightingrules
 
-import com.haghpanah.goooy.model.answer.Answer
+import com.haghpanah.goooy.model.Answer
 
 abstract class WeightingRules() {
     protected abstract fun matches(answer: Answer): Boolean

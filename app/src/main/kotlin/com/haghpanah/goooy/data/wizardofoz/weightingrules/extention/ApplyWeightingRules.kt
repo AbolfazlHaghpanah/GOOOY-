@@ -1,7 +1,7 @@
 package com.haghpanah.goooy.data.wizardofoz.weightingrules.extention
 
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.WeightingRules
-import com.haghpanah.goooy.model.answer.Answer
+import com.haghpanah.goooy.model.Answer
 
 fun List<Answer>.applyWeightingRules(
     rules: List<WeightingRules>,

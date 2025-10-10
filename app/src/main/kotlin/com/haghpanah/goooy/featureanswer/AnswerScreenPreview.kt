@@ -11,28 +11,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import com.haghpanah.goooy.coreui.theme.GOOOYTheme
 import com.haghpanah.goooy.model.ThemeStyle
-import com.haghpanah.goooy.model.answer.Answer
-import com.haghpanah.goooy.model.answer.AnswerType
-
-@Preview
-@Composable
-private fun AnswerScreenPreview() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        GOOOYTheme(themeStyle = ThemeStyle.Dark) {
-            Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
-                AnswerScreen(
-                    answer = Answer(
-                        id = 2310,
-                        dayTimeRange = null,
-                        type = AnswerType.Positive,
-                        description = "چشمان را باید بست جور دیگر باید دید",
-                        name = "نخواهد ماند",
-                        emoji = "\uD83D\uDE02"
-                    )
-                ) {
-
-                }
-            }
-        }
-    }
-}
+import com.haghpanah.goooy.model.Answer
+import com.haghpanah.goooy.model.AnswerType
+//
+//@Preview
+//@Composable
+//private fun AnswerScreenPreview() {
+//    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+//        GOOOYTheme(themeStyle = ThemeStyle.Dark) {
+//            Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+//                AnswerScreen(
+//                    answer = Answer(
+//                        id = 2310,
+//                        dayTimeRange = null,
+//                        type = AnswerType.Positive,
+//                        description = "چشمان را باید بست جور دیگر باید دید",
+//                        name = "نخواهد ماند",
+//                        emoji = "\uD83D\uDE02"
+//                    )
+//                ) {
+//
+//                }
+//            }
+//        }
+//    }
+//}

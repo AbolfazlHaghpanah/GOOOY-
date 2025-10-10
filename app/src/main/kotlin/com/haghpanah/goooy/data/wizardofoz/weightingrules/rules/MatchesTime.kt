@@ -3,7 +3,7 @@ package com.haghpanah.goooy.data.wizardofoz.weightingrules.rules
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.WeightingRules
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.WeightingRulesMode
 import com.haghpanah.goooy.data.wizardofoz.weightingrules.WeightingRulesMode.CASUAL
-import com.haghpanah.goooy.model.answer.Answer
+import com.haghpanah.goooy.model.Answer
 import java.util.Calendar
 
 class MatchesTime() : WeightingRules() {

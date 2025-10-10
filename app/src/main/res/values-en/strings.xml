@@ -45,4 +45,5 @@
     <string name="label_light">Light</string>
     <string name="label_system_default">System Default</string>
     <string name="label_chose_your_theme">Chose your Theme</string>
+    <string name="label_did_not_liked_the_answer">Didn’t Liked the answer?</string>
 </resources>
