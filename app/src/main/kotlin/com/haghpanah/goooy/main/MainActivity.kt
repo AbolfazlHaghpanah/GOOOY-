@@ -4,12 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,12 +18,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.haghpanah.goooy.featureanswer.AnswerScreen
-import com.haghpanah.goooy.featureintention.IntentionScreen
-import com.haghpanah.goooy.featureonboarding.screens.OnBoardingLanguageSelectorScreen
-import com.haghpanah.goooy.featureonboarding.screens.OnBoardingThemeSelectorScreen
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.coreui.navigation.mainNavGraph
 import com.haghpanah.goooy.coreui.theme.GOOOYTheme
