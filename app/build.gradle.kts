@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -29,20 +30,32 @@ android {
         minSdk = 24
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release"){
+            enableV3Signing = true
+            storeFile = rootProject.file("release/goooy-release.jks")
+            keyAlias = "goooy-release"
+            storePassword = loadValueFromProperties("STORE_PASSWORD")
+            keyPassword = loadValueFromProperties("KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -77,4 +90,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+fun loadValueFromProperties(key: String, propName: String = "local.properties"): String? {
+    val properties = Properties()
+    val localPropertiesFile = rootProject.file(propName)
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use {
+            properties.load(it)
+        }
+    }
+    return properties.getProperty(key)
 }
