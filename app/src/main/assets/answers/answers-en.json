@@ -1,174 +1,234 @@
 [
   {
     "id": 1,
-    "dayTimeRange": {
-      "startIn24": 6,
-      "endIn24": 12
-    },
+    "dayTimeRange": { "startIn24": 6, "endIn24": 9 },
     "type": "positive",
-    "name": "Morning Glory",
-    "description": "The sun is shining, rise up champ—today’s all yours!",
+    "name": "Good Morning, Yes!",
+    "description": "How could anyone say no on such a beautiful morning?",
     "emoji": "☀"
   },
   {
     "id": 2,
-    "dayTimeRange": null,
+    "dayTimeRange": { "startIn24": 9, "endIn24": 12 },
     "type": "positive",
-    "name": "No Doubts",
-    "description": "Yes, absolutely—don’t even think twice about it.",
-    "emoji": "✅"
+    "name": "Still a Yes",
+    "description": "Even though it’s not morning anymore, whatever you’re planning sounds blessed.",
+    "emoji": "☀"
   },
   {
     "id": 3,
     "dayTimeRange": null,
     "type": "positive",
-    "name": "Chill Yes",
-    "description": "For sure bro, relax and go with the flow.",
-    "emoji": "👌"
+    "name": "Yes",
+    "description": "If you don’t do it, you’ll regret it later.",
+    "emoji": "🪥"
   },
   {
     "id": 4,
     "dayTimeRange": null,
     "type": "positive",
-    "name": "Big Promise",
-    "description": "This one’s a guarantee—bet your sandwich on it.",
-    "emoji": "💯"
+    "name": "Strong and Solid",
+    "description": "What can I say... I wish my developer had your kind of luck. The answer’s yes.",
+    "emoji": "🚣‍♂️"
   },
   {
     "id": 5,
-    "dayTimeRange": {
-      "startIn24": 18,
-      "endIn24": 23
-    },
+    "dayTimeRange": { "startIn24": 0, "endIn24": 4 },
     "type": "positive",
-    "name": "Lucky Night",
-    "description": "Tonight the stars align—things are looking good.",
-    "emoji": "🍀"
+    "name": "After 2AM, Magic Happens",
+    "description": "A wise man once said: all great stories start after 2 a.m.",
+    "emoji": "🌃"
   },
   {
     "id": 6,
     "dayTimeRange": null,
-    "type": "negative",
-    "name": "Hard No",
-    "description": "Nope. Not happening. Don’t waste your energy.",
-    "emoji": "🚫"
+    "type": "positive",
+    "name": "Yup!",
+    "description": "You just gotta be quick—like super quick.",
+    "emoji": "💯"
   },
   {
     "id": 7,
     "dayTimeRange": null,
-    "type": "negative",
-    "name": "Forget It",
-    "description": "Forget it, dude. There are better things to do.",
-    "emoji": "❌"
+    "type": "positive",
+    "name": "Ra!",
+    "description": "Yes indeed. You must’ve woken up on the right side today.",
+    "emoji": "🪸"
   },
   {
     "id": 8,
-    "dayTimeRange": null,
-    "type": "negative",
-    "name": "Hell No",
-    "description": "Hell no! That’s a one-way ticket to regret.",
-    "emoji": "🔥"
+    "dayTimeRange": { "startIn24": 18, "endIn24": 23 },
+    "type": "positive",
+    "name": "When Night Falls",
+    "description": "Tonight, luck’s rolling in your favor.",
+    "emoji": "⭐"
   },
   {
     "id": 9,
-    "dayTimeRange": {
-      "startIn24": 22,
-      "endIn24": 24
-    },
-    "type": "negative",
-    "name": "Netflix Block",
-    "description": "Not tonight, man—Netflix is way more important.",
-    "emoji": "📺"
+    "dayTimeRange": null,
+    "type": "positive",
+    "name": "Yeah",
+    "description": "No explanation needed. It’s a yes.",
+    "emoji": "👍"
   },
   {
     "id": 10,
     "dayTimeRange": null,
-    "type": "negative",
-    "name": "Eternal No",
-    "description": "Never ever in a million years. Nope.",
-    "emoji": "⛔"
+    "type": "positive",
+    "name": "Of Course, Yes!",
+    "description": "Seriously, who would dare say no to that?",
+    "emoji": "👍"
   },
   {
     "id": 11,
     "dayTimeRange": null,
-    "type": "natural",
-    "name": "Unclear",
-    "description": "Maybe… the universe is still buffering.",
-    "emoji": "🤷"
+    "type": "negative",
+    "name": "Bruh, No.",
+    "description": "What kinda question was that? Obviously not. I don’t get this generation.",
+    "emoji": "🫤"
   },
   {
     "id": 12,
     "dayTimeRange": null,
-    "type": "natural",
-    "name": "Later Maybe",
-    "description": "Ask again later—right now the vibes are mixed.",
-    "emoji": "⏳"
+    "type": "negative",
+    "name": "Drop It",
+    "description": "Let it go, it’s not worth the brain cells.",
+    "emoji": "❌"
   },
   {
     "id": 13,
     "dayTimeRange": null,
-    "type": "natural",
-    "name": "Half Half",
-    "description": "It’s fifty-fifty, flip a coin and see.",
-    "emoji": "⚖"
+    "type": "negative",
+    "name": "Nope.",
+    "description": "No. No. And once again, NO—with authority.",
+    "emoji": "🏴‍☠️"
   },
   {
     "id": 14,
     "dayTimeRange": null,
-    "type": "natural",
-    "name": "Coin Toss",
-    "description": "Could go either way—just like a coin in the air.",
-    "emoji": "🪙"
+    "type": "negative",
+    "name": "Nah, Don’t Think So",
+    "description": "Can’t say I believe in it, but hey—it’s your call.",
+    "emoji": "😂"
   },
   {
     "id": 15,
-    "dayTimeRange": {
-      "startIn24": 12,
-      "endIn24": 18
-    },
-    "type": "natural",
-    "name": "Random Noon",
-    "description": "Afternoons are unpredictable—you’ll see what happens.",
-    "emoji": "🌤"
+    "dayTimeRange": null,
+    "type": "negative",
+    "name": "No.",
+    "description": "That’s it. Don’t chase it further.",
+    "emoji": "😂"
   },
   {
     "id": 16,
-    "dayTimeRange": null,
-    "type": "silly",
-    "name": "Stoner Mood",
-    "description": "Bro, I’m way too high for this question.",
-    "emoji": "🍃"
+    "dayTimeRange": { "startIn24": 1, "endIn24": 4 },
+    "type": "negative",
+    "name": "Nothing Good After 2AM",
+    "description": "A wise man said: if it’s past 2 a.m., just sleep. No good decision happens now.",
+    "emoji": "😂"
   },
   {
     "id": 17,
-    "dayTimeRange": null,
-    "type": "silly",
-    "name": "Snack Time",
-    "description": "The answer is simple: go grab a sandwich.",
-    "emoji": "🥪"
+    "dayTimeRange": { "startIn24": 12, "endIn24": 16 },
+    "type": "negative",
+    "name": "Nope!",
+    "description": "You’re either hungry or just had lunch—you’re not thinking straight. So yeah, no.",
+    "emoji": "😒"
   },
   {
     "id": 18,
     "dayTimeRange": null,
-    "type": "silly",
-    "name": "Cat Oracle",
-    "description": "Ask your cat—he knows more than me.",
-    "emoji": "🐱"
+    "type": "negative",
+    "name": "Feels Shady",
+    "description": "My vibes say no. Something’s off about it.",
+    "emoji": "🫷"
   },
   {
     "id": 19,
     "dayTimeRange": null,
-    "type": "silly",
-    "name": "Potato Truth",
-    "description": "The universe whispers… potato.",
-    "emoji": "🥔"
+    "type": "negative",
+    "name": "Honestly, No",
+    "description": "One day you’ll thank me for showing you this path.",
+    "emoji": "🕊"
   },
   {
     "id": 20,
     "dayTimeRange": null,
+    "type": "negative",
+    "name": "Never",
+    "description": "Another life, maybe. But not this one.",
+    "emoji": "💣"
+  },
+  {
+    "id": 21,
+    "dayTimeRange": null,
+    "type": "natural",
+    "name": "I Swear I Don’t Know",
+    "description": "Maybe... the universe is still loading.",
+    "emoji": "🤷"
+  },
+  {
+    "id": 22,
+    "dayTimeRange": null,
+    "type": "natural",
+    "name": "Let It Go, Homayoun",
+    "description": "The secret of life is letting go—you won’t get it till you feel it.",
+    "emoji": "😵‍💫"
+  },
+  {
+    "id": 23,
+    "dayTimeRange": null,
+    "type": "natural",
+    "name": "Doesn’t Matter",
+    "description": "Seriously, look around you.",
+    "emoji": "👁️"
+  },
+  {
+    "id": 24,
+    "dayTimeRange": null,
+    "type": "natural",
+    "name": "Can’t Say",
+    "description": "I can’t answer that, man. I’ll refer you to my friend, Mr. Hafez.",
+    "emoji": "🍷"
+  },
+  {
+    "id": 25,
+    "dayTimeRange": null,
+    "type": "natural",
+    "name": "Whatever Happens",
+    "description": "Let the universe take the wheel.",
+    "emoji": "🌤"
+  },
+  {
+    "id": 26,
+    "dayTimeRange": null,
     "type": "silly",
-    "name": "GOOOOY!",
-    "description": "GOOOOY! The only answer you’ll ever need.",
-    "emoji": "🤪"
+    "name": "Balance",
+    "description": "There’s order in chaos—just not your kind of order.",
+    "emoji": "🎱"
+  },
+  {
+    "id": 27,
+    "dayTimeRange": null,
+    "type": "silly",
+    "name": "Someone’s Under the Couch",
+    "description": "When you lose yourself completely, that’s when the answer comes.",
+    "emoji": "👽"
+  },
+  {
+    "id": 28,
+    "dayTimeRange": null,
+    "type": "silly",
+    "name": "Wait a Minute",
+    "description": "Now’s not the time for questions—maybe later, dude.",
+    "emoji": "⏰"
+  },
+  {
+    "id": 29,
+    "dayTimeRange": null,
+    "type": "silly",
+    "name": "Gooooy!",
+    "description": "The answer to everything… is Gooooy!",
+    "emoji": "💾"
   }
 ]
