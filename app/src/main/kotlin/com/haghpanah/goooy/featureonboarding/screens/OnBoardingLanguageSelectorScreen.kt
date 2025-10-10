@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,9 +35,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
-import com.haghpanah.goooy.model.AppLanguage
-import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
+import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
+import com.haghpanah.goooy.model.AppLanguage
 
 @Composable
 fun OnBoardingLanguageSelectorScreen(
@@ -74,7 +73,7 @@ private fun SharedTransitionScope.OnBoardingLanguageSelectorScreen(
     animatedContentScope: AnimatedContentScope,
     onContinue: () -> Unit,
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .systemBarsPadding()
             .padding(
@@ -82,99 +81,104 @@ private fun SharedTransitionScope.OnBoardingLanguageSelectorScreen(
                 vertical = 24.dp
             )
             .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Column(
+        Spacer(modifier = Modifier.weight(1f))
+
+        Row(
             modifier = Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+                .padding(vertical = 24.dp)
+                .sharedElement(
+                    sharedContentState = this@OnBoardingLanguageSelectorScreen
+                        .rememberSharedContentState("logo"),
+                    animatedVisibilityScope = animatedContentScope
+                )
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(
-                modifier = Modifier
-                    .sharedElement(
-                        sharedContentState = this@OnBoardingLanguageSelectorScreen
-                            .rememberSharedContentState("logo"),
-                        animatedVisibilityScope = animatedContentScope
-                    )
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(R.string.label_goooy),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.displayLarge,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-
-                Icon(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .height(64.dp),
-                    imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
             Text(
-                text = stringResource(R.string.message_intorduction_description),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                text = stringResource(R.string.label_goooy),
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.displayLarge,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
 
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(R.string.label_select_language),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
+            Icon(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .height(64.dp),
+                imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
 
-                Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
-                AppLanguage.entries.forEachIndexed { index, language ->
-                    TextButton(
-                        colors = ButtonDefaults.textButtonColors(
-                            containerColor = animateColorAsState(
-                                if (selectedLanguage == language) {
-                                    MaterialTheme.colorScheme.surfaceContainerHigh
-                                } else {
-                                    ButtonDefaults.textButtonColors().containerColor
-                                }
-                            ).value,
-                            contentColor = animateColorAsState(
-                                if (selectedLanguage == language) {
-                                    MaterialTheme.colorScheme.onSurface
-                                } else {
-                                    ButtonDefaults.textButtonColors().contentColor
-                                }
-                            ).value
-                        ),
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { onLanguageSelected(language) }
-                    ) {
-                        Text(language.getTextId())
-                    }
+        Text(
+            text = stringResource(R.string.message_intorduction_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
 
-                    if (index != AppLanguage.entries.lastIndex) {
-                        HorizontalDivider()
-                    }
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            modifier = Modifier
+                .padding(vertical = 24.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(R.string.label_select_language),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            AppLanguage.entries.forEachIndexed { index, language ->
+                TextButton(
+                    colors = ButtonDefaults.textButtonColors(
+                        containerColor = animateColorAsState(
+                            if (selectedLanguage == language) {
+                                MaterialTheme.colorScheme.surfaceContainerHigh
+                            } else {
+                                ButtonDefaults.textButtonColors().containerColor
+                            }
+                        ).value,
+                        contentColor = animateColorAsState(
+                            if (selectedLanguage == language) {
+                                MaterialTheme.colorScheme.onSurface
+                            } else {
+                                ButtonDefaults.textButtonColors().contentColor
+                            }
+                        ).value
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { onLanguageSelected(language) }
+                ) {
+                    Text(language.getTextId())
+                }
+
+                if (index != AppLanguage.entries.lastIndex) {
+                    HorizontalDivider()
                 }
             }
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Button(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
+                .padding(top = 24.dp)
                 .fillMaxWidth(),
             onClick = onContinue
         ) {

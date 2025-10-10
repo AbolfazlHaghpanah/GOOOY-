@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -125,6 +127,7 @@ fun AnswerScreen(
                 onClick = onBackPressed
             )
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp, vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -196,7 +199,9 @@ fun AnswerScreen(
 
         if (answerRepeatReason != null) {
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 24.dp)
+                    .fillMaxWidth(),
                 text = answerRepeatReason,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -207,7 +212,9 @@ fun AnswerScreen(
         Spacer(Modifier.weight(1f))
 
         Button(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .fillMaxWidth(),
             onClick = onDidNotLikeAnswerClicked
         ) {
             Text(stringResource(R.string.label_did_not_liked_the_answer))

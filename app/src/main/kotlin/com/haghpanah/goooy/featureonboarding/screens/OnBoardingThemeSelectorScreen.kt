@@ -90,7 +90,7 @@ private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
     animatedContentScope: AnimatedContentScope,
     onContinue: () -> Unit,
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .systemBarsPadding()
             .padding(
@@ -98,114 +98,118 @@ private fun SharedTransitionScope.OnBoardingThemeSelectorScreen(
                 vertical = 24.dp
             )
             .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Column(
+        Spacer(modifier = Modifier.weight(1f))
+
+        Row(
             modifier = Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+                .padding(vertical = 24.dp)
+                .sharedElement(
+                    sharedContentState = this@OnBoardingThemeSelectorScreen
+                        .rememberSharedContentState("logo"),
+                    animatedVisibilityScope = animatedContentScope
+                )
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(
-                modifier = Modifier
-                    .sharedElement(
-                        sharedContentState = this@OnBoardingThemeSelectorScreen
-                            .rememberSharedContentState("logo"),
-                        animatedVisibilityScope = animatedContentScope
-                    )
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(R.string.label_goooy),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.displayLarge,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-
-                Icon(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .height(64.dp),
-                    imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
             Text(
-                text = stringResource(R.string.message_theme_selector_message),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                text = stringResource(R.string.label_goooy),
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.displayLarge,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
 
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(R.string.label_chose_your_theme),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
+            Icon(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .height(64.dp),
+                imageVector = ImageVector.vectorResource(R.drawable.goooy_icon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = stringResource(R.string.message_theme_selector_message),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            modifier = Modifier
+                .padding(vertical = 24.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(R.string.label_chose_your_theme),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(2.dp))
+
+            ThemeStyle.entries.forEach {
+                val isSelectedTransaction = updateTransition(
+                    targetState = it == selectedTheme,
                 )
+                val height by isSelectedTransaction.animateDp { isSelected ->
+                    if (isSelected)
+                        32.dp else 24.dp
+                }
+                val textStyleFraction by isSelectedTransaction.animateFloat { isSelected ->
+                    if (isSelected)
+                        1f else 0f
+                }
 
-                Spacer(modifier = Modifier.height(2.dp))
-
-                ThemeStyle.entries.forEach {
-                    val isSelectedTransaction = updateTransition(
-                        targetState = it == selectedTheme,
-                    )
-                    val height by isSelectedTransaction.animateDp { isSelected ->
-                        if (isSelected)
-                            32.dp else 24.dp
-                    }
-                    val textStyleFraction by isSelectedTransaction.animateFloat { isSelected ->
-                        if (isSelected)
-                            1f else 0f
-                    }
-
-                    Row(
+                Row(
+                    modifier = Modifier
+                        .clip(MaterialTheme.shapes.medium)
+                        .clickable { onThemeChange(it) }
+                        .background(it.getContainerColor())
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
                         modifier = Modifier
-                            .clip(MaterialTheme.shapes.medium)
-                            .clickable { onThemeChange(it) }
-                            .background(it.getContainerColor())
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .weight(1f),
-                            text = stringResource(it.getTextId()),
-                            color = it.getTextColor(),
-                            style = lerp(
-                                MaterialTheme.typography.titleSmall,
-                                MaterialTheme.typography.titleLarge,
-                                textStyleFraction
-                            ),
-                        )
+                            .weight(1f),
+                        text = stringResource(it.getTextId()),
+                        color = it.getTextColor(),
+                        style = lerp(
+                            MaterialTheme.typography.titleSmall,
+                            MaterialTheme.typography.titleLarge,
+                            textStyleFraction
+                        ),
+                    )
 
-                        Box(
-                            modifier = Modifier
-                                .clip(MaterialTheme.shapes.small)
-                                .background(it.getInnerContainerColor())
-                                .height(height)
-                                .weight(0.5f)
-                        )
-                    }
+                    Box(
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.small)
+                            .background(it.getInnerContainerColor())
+                            .height(height)
+                            .weight(0.5f)
+                    )
                 }
             }
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Button(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
+                .padding(top = 24.dp)
                 .fillMaxWidth(),
             onClick = onContinue
         ) {

@@ -38,11 +38,9 @@ class WizardOfOzImpl @Inject constructor(
     override val seenAnswerIds: MutableList<Int> = mutableListOf()
     override val blockedAnswerIds: MutableList<Int> = mutableListOf()
 
-    init {
-        loadAnswers()
-    }
-
     override fun getAnswer(): Answer {
+        loadAnswers()
+
         val weightedAnswers = currentAnswers
             .applyWeightingRules(
                 listOf(

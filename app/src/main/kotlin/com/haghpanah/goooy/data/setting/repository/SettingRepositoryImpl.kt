@@ -4,7 +4,6 @@ import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
 import android.os.LocaleList
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.haghpanah.goooy.data.setting.storage.SettingStorage
@@ -18,9 +17,6 @@ class SettingRepositoryImpl @Inject constructor(
     private val settingStorage: SettingStorage,
     @ApplicationContext private val context: Context,
 ) : SettingRepository {
-    @RequiresApi(33)
-    private val localManager =
-        context.getSystemService(LocaleManager::class.java)
 
     override fun observeTheme(): Flow<ThemeStyle?> =
         settingStorage.theme
@@ -39,6 +35,9 @@ class SettingRepositoryImpl @Inject constructor(
 
     override fun getCurrentLanguage(): AppLanguage? {
         val currentLocal = if (Build.VERSION.SDK_INT >= 33) {
+            val localManager =
+                context.getSystemService(LocaleManager::class.java)
+
             val local = localManager.applicationLocales.get(0)
 
             if (local == null) {
@@ -48,7 +47,7 @@ class SettingRepositoryImpl @Inject constructor(
 
             localManager.applicationLocales.get(0)
         } else {
-            context.resources.configuration.locales[0]
+            AppCompatDelegate.getApplicationLocales().get(0)
         }
 
         return AppLanguage.entries.firstOrNull {
