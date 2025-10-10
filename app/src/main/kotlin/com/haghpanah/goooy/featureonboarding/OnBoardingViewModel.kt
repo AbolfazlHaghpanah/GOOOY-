@@ -40,9 +40,11 @@ class OnBoardingViewModel @Inject constructor(
 
     fun getCurrentLanguage() {
         viewModelScope.launch {
+            val a = settingRepository.getCurrentLanguage()
+
+            Log.d("mmd", "getCurrentLanguage:$a ")
             _currentLanguage.emit(
-                settingRepository.getCurrentLanguage()
-                    ?: AppLanguage.getDefault()
+                a ?: AppLanguage.getDefault()
             )
         }
     }

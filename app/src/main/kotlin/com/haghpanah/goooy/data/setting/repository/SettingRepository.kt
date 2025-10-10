@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface SettingRepository {
     fun observeTheme(): Flow<ThemeStyle?>
     fun observeHasSeenIntro() : Flow<Boolean>
-    fun initiateLocales()
     fun getCurrentLanguage(): AppLanguage?
     suspend fun setTheme(themeStyle: ThemeStyle)
     suspend fun setLanguage(language: AppLanguage)

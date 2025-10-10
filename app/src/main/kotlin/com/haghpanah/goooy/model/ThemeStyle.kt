@@ -6,6 +6,6 @@ enum class ThemeStyle(val id: Int) {
     SystemBased(3);
 
     companion object {
-        fun getDefault() = Dark
+        fun getDefault() = SystemBased
     }
 }

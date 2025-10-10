@@ -1,6 +1,5 @@
 package com.haghpanah.goooy.data.setting.repository
 
-import android.app.LocaleConfig
 import android.app.LocaleManager
 import android.content.Context
 import android.os.Build
@@ -8,9 +7,9 @@ import android.os.LocaleList
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.haghpanah.goooy.data.setting.storage.SettingStorage
 import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.ThemeStyle
-import com.haghpanah.goooy.data.setting.storage.SettingStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -29,18 +28,6 @@ class SettingRepositoryImpl @Inject constructor(
     override fun observeHasSeenIntro(): Flow<Boolean> =
         settingStorage.hasSeenIntro
 
-    override fun initiateLocales() {
-        if (Build.VERSION.SDK_INT >= 34) {
-            context.getSystemService(LocaleManager::class.java).apply {
-                overrideLocaleConfig = LocaleConfig(
-                    LocaleList.forLanguageTags(
-                        AppLanguage.entries.joinToString(separator = ",") { it.tag }
-                    )
-                )
-            }
-        }
-    }
-
     override suspend fun setTheme(themeStyle: ThemeStyle) {
         settingStorage.setTheme(themeStyle)
     }
@@ -52,6 +39,13 @@ class SettingRepositoryImpl @Inject constructor(
 
     override fun getCurrentLanguage(): AppLanguage? {
         val currentLocal = if (Build.VERSION.SDK_INT >= 33) {
+            val local = localManager.applicationLocales.get(0)
+
+            if (local == null) {
+                localManager.applicationLocales =
+                    LocaleList.forLanguageTags(AppLanguage.entries.joinToString { it.tag })
+            }
+
             localManager.applicationLocales.get(0)
         } else {
             context.resources.configuration.locales[0]
