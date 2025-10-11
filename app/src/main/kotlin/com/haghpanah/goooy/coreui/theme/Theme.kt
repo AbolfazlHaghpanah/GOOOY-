@@ -85,15 +85,11 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun GOOOYTheme(
-    themeStyle: ThemeStyle,
+    isLight: Boolean,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when (themeStyle) {
-        ThemeStyle.Dark -> DarkColorScheme
-        ThemeStyle.Light -> LightColorScheme
-        ThemeStyle.SystemBased -> if (isSystemInDarkTheme())
-            DarkColorScheme else LightColorScheme
-    }
+    val colorScheme = if (isLight)
+        LightColorScheme else DarkColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,
