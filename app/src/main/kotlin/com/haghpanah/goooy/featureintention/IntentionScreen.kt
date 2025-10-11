@@ -119,7 +119,7 @@ fun IntentionScreen(
                         vibrator.vibrate(
                             VibrationEffect.startComposition().addPrimitive(
                                 VibrationEffect.Composition.PRIMITIVE_LOW_TICK,
-                                animatedRadios / 700
+                                minOf(animatedRadios / 500, 1f)
                             ).compose()
                         )
                     }
