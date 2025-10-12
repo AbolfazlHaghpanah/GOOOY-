@@ -57,25 +57,24 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            val surfaceColor = MaterialTheme.colorScheme.surface.toArgb()
 
             SideEffect {
                 enableEdgeToEdge(
                     statusBarStyle = if (isLightTheme) {
                         SystemBarStyle.light(
                             scrim = Color.Transparent.toArgb(),
-                            darkScrim = Color(0xFFA5A9AB).toArgb()
+                            darkScrim = Color.Transparent.toArgb()
                         )
                     } else {
                         SystemBarStyle.dark(Color.Transparent.toArgb())
                     },
                     navigationBarStyle = if (isLightTheme) {
                         SystemBarStyle.light(
-                            scrim = surfaceColor,
-                            darkScrim = Color(0xFFA5A9AB).toArgb()
+                            scrim = Color.Transparent.toArgb(),
+                            darkScrim = Color.Transparent.toArgb()
                         )
                     } else {
-                        SystemBarStyle.dark(surfaceColor)
+                        SystemBarStyle.dark(Color.Transparent.toArgb())
                     }
                 )
             }
