@@ -4,7 +4,7 @@ Gooooy is a minimal Android app that helps you make decisions when you’re unsu
 It’s designed for those moments when you feel stuck — when fear, doubt, or uncertainty hold you back from moving forward.  
 Gooooy gives you a simple way to reflect, decide, and take action.
 
-[<img width="105" height="31" alt="Cafe Bazaar Download" src="https://github.com/user-attachments/assets/2d384410-7f02-4ed6-a837-500dc837df5a" />]([https://cafebazaar.ir/app/YOUR_PACKAGE_NAME](https://cafebazaar.ir/app/com.haghpanah.goooy))
+[<img width="105" height="31" alt="Cafe Bazaar Download" src="https://github.com/user-attachments/assets/2d384410-7f02-4ed6-a837-500dc837df5a" />](https://cafebazaar.ir/app/com.haghpanah.goooy)
 
 ---
 
