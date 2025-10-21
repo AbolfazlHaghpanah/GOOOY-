@@ -73,14 +73,17 @@ fun IntentionScreen(
     var soonReleasedCounter by remember { mutableIntStateOf(0) }
     val hintTextId by remember {
         derivedStateOf {
-            if (soonReleasedCounter == 0) {
-                R.string.message_hold_to_get_answer
-            } else {
-                setOf(
-                    R.string.message_hold_more_hint_1,
-                    R.string.message_hold_more_hint_2,
-                    R.string.message_hold_more_hint_3,
-                ).random()
+            when (soonReleasedCounter) {
+                0 -> R.string.message_hold_to_get_answer
+                1 -> R.string.message_hold_more_hint_2
+
+                else -> {
+                    setOf(
+                        R.string.message_hold_more_hint_1,
+                        R.string.message_hold_more_hint_2,
+                        R.string.message_hold_more_hint_3,
+                    ).random()
+                }
             }
         }
     }

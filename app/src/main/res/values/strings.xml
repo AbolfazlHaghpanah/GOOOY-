@@ -2,7 +2,7 @@
     <string name="app_name">گووووی!</string>
     <string name="label_goooy">گووووی</string>
     <string name="message_hold_to_get_answer">وقتی سوالت رو پرسیدی، لمسم کن تا جوابتو بگیری</string>
-    <string name="message_hold_more_hint_1">مممم زود دوستتو ورداشتی</string>
+    <string name="message_hold_more_hint_1">مممم زود انگشتتو ورداشتی</string>
     <string name="message_hold_more_hint_2">انقد دستتو نگه دار تا بگمت</string>
     <string name="message_hold_more_hint_3">برای گرفتن جواب نمیتونی دو صدم ثانیه لمسم کنی؟</string>
     <string name="label_hold_still">نگه دار</string>
