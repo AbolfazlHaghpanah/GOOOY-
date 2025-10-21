@@ -29,14 +29,15 @@ android {
         applicationId = "com.haghpanah.goooy"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        //epoch - 1, major - 2, minor - 2, patch - 2, offset - 1
+        versionCode = 10100010
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
-        create("release"){
+        create("release") {
             enableV3Signing = true
             storeFile = rootProject.file("release/goooy-release.jks")
             keyAlias = "goooy-release"
