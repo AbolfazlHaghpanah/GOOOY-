@@ -16,7 +16,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     val currentTheme = settingRepository.observeTheme()
         .map {
-            it ?: ThemeStyle.Dark
+            it ?: ThemeStyle.getDefault()
         }
         .stateIn(
             scope = viewModelScope,

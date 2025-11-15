@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 sealed class GOOOYScreens {
 
     @Serializable
+    data object InitialScreenDecider
+
+    @Serializable
     data object Intention
 
     @Serializable
