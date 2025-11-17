@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -25,11 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.haghpanah.goooy.analytics.AnalyticsManager
+import com.haghpanah.goooy.analytics.LocalAnalyticsManager
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens.InitialScreenDecider
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens.Intention
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens.OnBoardingLanguageSelector
@@ -37,9 +41,15 @@ import com.haghpanah.goooy.coreui.navigation.mainNavGraph
 import com.haghpanah.goooy.coreui.theme.GOOOYTheme
 import com.haghpanah.goooy.model.ThemeStyle
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var analyticsManager: AnalyticsManager
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var shouldStayOnSplash = true
@@ -48,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            val viewModel = hiltViewModel<MainViewModel>()
             val navController = rememberNavController()
             val currentTheme by viewModel.currentTheme.collectAsStateWithLifecycle()
             val hasSeenIntro by viewModel.hasSeenIntro.collectAsStateWithLifecycle()
@@ -64,56 +73,71 @@ class MainActivity : AppCompatActivity() {
             }
             ApplyStatusBarColors(isLightTheme)
 
-            GOOOYTheme(isLightTheme) {
-                Scaffold(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    contentWindowInsets = WindowInsets()
+            CompositionLocalProvider(LocalAnalyticsManager provides analyticsManager) {
+                GOOOYTheme(isLightTheme) {
+                    MainScreen(
+                        navController = navController,
+                        hasSeenIntro = hasSeenIntro,
+                        onSkipSplashRequested = {
+                            shouldStayOnSplash = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MainScreen(
+    navController: NavHostController,
+    hasSeenIntro: Boolean?,
+    onSkipSplashRequested: () -> Unit,
+) {
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentWindowInsets = WindowInsets()
+    ) {
+        SharedTransitionLayout {
+            NavHost(
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface),
+                navController = navController,
+                startDestination = InitialScreenDecider
+            ) {
+                composable<InitialScreenDecider>(
+                    enterTransition = null,
+                    exitTransition = null
                 ) {
-                    SharedTransitionLayout {
-                        NavHost(
-                            modifier = Modifier
-                                .padding(it)
-                                .fillMaxSize()
-                                .background(MaterialTheme.colorScheme.surface),
-                            navController = navController,
-                            startDestination = InitialScreenDecider
-                        ) {
-                            composable<InitialScreenDecider>(
-                                enterTransition = null,
-                                exitTransition = null
-                            ) {
-                                Box(Modifier.fillMaxSize())
+                    Box(Modifier.fillMaxSize())
 
-                                LaunchedEffect(hasSeenIntro) {
-                                    if (hasSeenIntro == true) {
-                                        navController.navigate(Intention) {
-                                            popUpTo<InitialScreenDecider> {
-                                                inclusive = true
-                                            }
-                                        }
-                                    } else if (hasSeenIntro == false) {
-                                        navController.navigate(OnBoardingLanguageSelector) {
-                                            popUpTo<InitialScreenDecider> {
-                                                inclusive = true
-                                            }
-                                        }
-                                    }
-                                }
-
-                                DisposableEffect(Unit) {
-                                    onDispose {
-                                        shouldStayOnSplash = false
-                                    }
+                    LaunchedEffect(hasSeenIntro) {
+                        if (hasSeenIntro == true) {
+                            navController.navigate(Intention) {
+                                popUpTo<InitialScreenDecider> {
+                                    inclusive = true
                                 }
                             }
-
-                            mainNavGraph(
-                                navController = navController,
-                                sharedTransitionScope = this@SharedTransitionLayout
-                            )
+                        } else if (hasSeenIntro == false) {
+                            navController.navigate(OnBoardingLanguageSelector) {
+                                popUpTo<InitialScreenDecider> {
+                                    inclusive = true
+                                }
+                            }
                         }
                     }
+
+                    DisposableEffect(Unit) {
+                        onDispose(onSkipSplashRequested)
+                    }
                 }
+
+                mainNavGraph(
+                    navController = navController,
+                    sharedTransitionScope = this@SharedTransitionLayout
+                )
             }
         }
     }

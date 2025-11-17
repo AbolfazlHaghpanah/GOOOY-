@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "516571716772",
+    "project_id": "goooy-app",
+    "storage_bucket": "goooy-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516571716772:android:c810b4e377678d097f9a31",
+        "android_client_info": {
+          "package_name": "com.haghpanah.goooy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC30daFptjxAS6rQ07vbRoiXBNyXrVRaJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
