@@ -35,6 +35,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
+import com.haghpanah.goooy.analytics.LocalAnalyticsManager
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.featureonboarding.OnBoardingViewModel
 import com.haghpanah.goooy.model.AppLanguage
@@ -47,6 +48,7 @@ fun OnBoardingLanguageSelectorScreen(
     viewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val selectedLanguage by viewModel.currentLanguage.collectAsStateWithLifecycle()
+    val analyticsManager = LocalAnalyticsManager.current
 
     with(sharedTransitionScope) {
         OnBoardingLanguageSelectorScreen(
@@ -58,6 +60,13 @@ fun OnBoardingLanguageSelectorScreen(
             },
             animatedContentScope = animatedContentScope,
             onContinue = {
+                analyticsManager.sendEvent(
+                    name = "select-language",
+                    params = mapOf(
+                        "language" to selectedLanguage.name
+                    )
+                )
+
                 navController.navigate(GOOOYScreens.OnBoardingThemeSelector) {
                     launchSingleTop = true
                 }

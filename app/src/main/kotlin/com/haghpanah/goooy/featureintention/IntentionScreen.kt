@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
+import com.haghpanah.goooy.analytics.LocalAnalyticsManager
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.featureintention.IntentionGestureState.Idle
 import com.haghpanah.goooy.featureintention.IntentionGestureState.OnHoldNotReady
@@ -68,6 +69,8 @@ fun IntentionScreen(
     animatedContentScope: AnimatedContentScope,
 ) {
     val context = LocalContext.current
+    val analyticsManager = LocalAnalyticsManager.current
+
     var currentGestureState by remember { mutableStateOf(Idle) }
     var circleRadius by remember { mutableFloatStateOf(0f) }
     var soonReleasedCounter by remember { mutableIntStateOf(0) }
@@ -178,11 +181,17 @@ fun IntentionScreen(
                 if (circleRadius >= navigationThreshold - 150f) {
                     circleRadius = 2500f
                     delay(200)
+                    analyticsManager.sendEvent(
+                        "navigate-to-answer", mapOf(
+                            "soon-release-count" to soonReleasedCounter.toString()
+                        )
+                    )
                     navController.navigate(GOOOYScreens.Answer) {
                         launchSingleTop = true
                     }
                 } else {
                     soonReleasedCounter++
+                    analyticsManager.sendEvent("soon-released")
                     currentGestureState = Idle
                 }
             }
@@ -199,6 +208,7 @@ fun IntentionScreen(
             hintTextId = hintTextId,
             circleRadius = animatedRadios,
             onNavigateToOnBoarding = {
+                analyticsManager.sendEvent("clicked-setting")
                 navController.navigate(GOOOYScreens.OnBoardingLanguageSelector) {
                     launchSingleTop = true
                 }

@@ -43,6 +43,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
+import com.haghpanah.goooy.analytics.LocalAnalyticsManager
 import com.haghpanah.goooy.coreui.navigation.GOOOYScreens
 import com.haghpanah.goooy.coreui.theme.onSurfaceDark
 import com.haghpanah.goooy.coreui.theme.onSurfaceLight
@@ -61,6 +62,7 @@ fun OnBoardingThemeSelectorScreen(
     viewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val selectedTheme by viewModel.currentTheme.collectAsStateWithLifecycle()
+    val analyticsManager = LocalAnalyticsManager.current
 
     with(sharedTransitionScope) {
         OnBoardingThemeSelectorScreen(
@@ -71,6 +73,12 @@ fun OnBoardingThemeSelectorScreen(
             animatedContentScope = animatedContentScope,
             onContinue = {
                 viewModel.markIntroSeen {
+                    analyticsManager.sendEvent(
+                        name = "select-theme",
+                        params = mapOf(
+                            "theme" to selectedTheme.name
+                        )
+                    )
                     navController.navigate(GOOOYScreens.Intention) {
                         launchSingleTop = true
                         popUpTo(GOOOYScreens.Intention) {

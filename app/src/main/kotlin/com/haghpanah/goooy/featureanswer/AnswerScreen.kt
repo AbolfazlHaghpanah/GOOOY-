@@ -48,6 +48,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.haghpanah.goooy.R
+import com.haghpanah.goooy.analytics.LocalAnalyticsManager
 import com.haghpanah.goooy.model.Answer
 import com.haghpanah.goooy.model.AnswerResult
 import com.haghpanah.goooy.model.AnswerType
@@ -121,6 +122,7 @@ fun AnswerScreen(
     onDidNotLikeAnswerClicked: () -> Unit,
 ) {
     val circleColor = MaterialTheme.colorScheme.primaryContainer
+    val analyticsManager = LocalAnalyticsManager.current
 
     Column(
         modifier = Modifier
@@ -202,14 +204,30 @@ fun AnswerScreen(
 
         Spacer(Modifier.weight(1f))
 
-        val answerRepeatReason: String? = when {
-            answerResult.isBlocked && answerResult.seenCount == 2 -> stringResource(R.string.message_blocked_and_seen_once)
-            answerResult.isBlocked && answerResult.seenCount in 2..4 -> stringResource(R.string.message_blocked_but_seen_twice)
-            answerResult.isBlocked && answerResult.seenCount > 4 -> stringResource(R.string.message_blocked_but_seen_multiple_time)
-            answerResult.seenCount == 2 -> stringResource(R.string.message_seen_twice)
-            answerResult.seenCount in 2..4 -> stringResource(R.string.message_seen_answer_multipletime)
-            answerResult.seenCount > 4 -> stringResource(R.string.message_seen_answer_many_time)
-            else -> null
+        val answerRepeatReason: Int? by remember {
+            derivedStateOf {
+                when {
+                    answerResult.isBlocked && answerResult.seenCount == 2 -> R.string.message_blocked_and_seen_once
+                    answerResult.isBlocked && answerResult.seenCount in 2..4 -> R.string.message_blocked_but_seen_twice
+                    answerResult.isBlocked && answerResult.seenCount > 4 -> R.string.message_blocked_but_seen_multiple_time
+                    answerResult.seenCount == 2 -> R.string.message_seen_twice
+                    answerResult.seenCount in 2..4 -> R.string.message_seen_answer_multipletime
+                    answerResult.seenCount > 4 -> R.string.message_seen_answer_many_time
+                    else -> null
+                }
+            }
+        }
+
+        LaunchedEffect(answerRepeatReason) {
+            if (answerRepeatReason != null) {
+                analyticsManager.sendEvent(
+                    "show-answer-repeat-reason",
+                    mapOf(
+                        "is-blocked" to answerResult.isBlocked.toString(),
+                        "seen-count" to answerResult.seenCount.toString()
+                    )
+                )
+            }
         }
 
         if (answerRepeatReason != null) {
@@ -217,7 +235,7 @@ fun AnswerScreen(
                 modifier = Modifier
                     .padding(top = 24.dp)
                     .fillMaxWidth(),
-                text = answerRepeatReason,
+                text = stringResource(answerRepeatReason!!),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center

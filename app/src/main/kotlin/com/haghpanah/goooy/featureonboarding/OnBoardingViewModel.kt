@@ -3,9 +3,9 @@ package com.haghpanah.goooy.featureonboarding
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import com.haghpanah.goooy.model.AppLanguage
 import com.haghpanah.goooy.model.ThemeStyle
-import com.haghpanah.goooy.data.setting.repository.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -40,11 +40,9 @@ class OnBoardingViewModel @Inject constructor(
 
     fun getCurrentLanguage() {
         viewModelScope.launch {
-            val a = settingRepository.getCurrentLanguage()
-
-            Log.d("mmd", "getCurrentLanguage:$a ")
+            val appLanguage = settingRepository.getCurrentLanguage()
             _currentLanguage.emit(
-                a ?: AppLanguage.getDefault()
+                appLanguage ?: AppLanguage.getDefault()
             )
         }
     }
