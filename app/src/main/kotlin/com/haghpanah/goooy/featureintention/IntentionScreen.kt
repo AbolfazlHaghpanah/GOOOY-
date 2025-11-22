@@ -182,8 +182,8 @@ fun IntentionScreen(
                     circleRadius = 2500f
                     delay(200)
                     analyticsManager.sendEvent(
-                        "navigate-to-answer", mapOf(
-                            "soon-release-count" to soonReleasedCounter.toString()
+                        "navigate_to_answer", mapOf(
+                            "soon_release_count" to soonReleasedCounter.toString()
                         )
                     )
                     navController.navigate(GOOOYScreens.Answer) {
@@ -191,7 +191,7 @@ fun IntentionScreen(
                     }
                 } else {
                     soonReleasedCounter++
-                    analyticsManager.sendEvent("soon-released")
+                    analyticsManager.sendEvent("soon_released")
                     currentGestureState = Idle
                 }
             }
@@ -208,7 +208,7 @@ fun IntentionScreen(
             hintTextId = hintTextId,
             circleRadius = animatedRadios,
             onNavigateToOnBoarding = {
-                analyticsManager.sendEvent("clicked-setting")
+                analyticsManager.sendEvent("clicked_setting")
                 navController.navigate(GOOOYScreens.OnBoardingLanguageSelector) {
                     launchSingleTop = true
                 }

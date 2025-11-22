@@ -204,7 +204,7 @@ fun AnswerScreen(
 
         Spacer(Modifier.weight(1f))
 
-        val answerRepeatReason: Int? by remember {
+        val answerRepeatReason: Int? by remember(answerResult) {
             derivedStateOf {
                 when {
                     answerResult.isBlocked && answerResult.seenCount == 2 -> R.string.message_blocked_and_seen_once
@@ -221,10 +221,10 @@ fun AnswerScreen(
         LaunchedEffect(answerRepeatReason) {
             if (answerRepeatReason != null) {
                 analyticsManager.sendEvent(
-                    "show-answer-repeat-reason",
+                    "show_answer_repeat_reason",
                     mapOf(
-                        "is-blocked" to answerResult.isBlocked.toString(),
-                        "seen-count" to answerResult.seenCount.toString()
+                        "is_blocked" to answerResult.isBlocked.toString(),
+                        "seen_count" to answerResult.seenCount.toString()
                     )
                 )
             }

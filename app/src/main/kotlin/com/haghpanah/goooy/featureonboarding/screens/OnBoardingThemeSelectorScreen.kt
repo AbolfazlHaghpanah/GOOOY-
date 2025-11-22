@@ -74,7 +74,7 @@ fun OnBoardingThemeSelectorScreen(
             onContinue = {
                 viewModel.markIntroSeen {
                     analyticsManager.sendEvent(
-                        name = "select-theme",
+                        name = "select_theme",
                         params = mapOf(
                             "theme" to selectedTheme.name
                         )

@@ -32,12 +32,12 @@ class AnswerViewModel @Inject constructor(
                 ?.id
 
             analyticsManager.sendEvent(
-                "block-answer", mapOf(
-                    "answer-name" to answer.value
+                "block_answer", mapOf(
+                    "answer_name" to answer.value
                         ?.answer
                         ?.name
                         .toString(),
-                    "answer-type" to answer.value
+                    "answer_type" to answer.value
                         ?.answer
                         ?.type
                         ?.value
@@ -58,9 +58,9 @@ class AnswerViewModel @Inject constructor(
             val result = repository.getAnswer()
 
             analyticsManager.sendEvent(
-                "get-answer", mapOf(
-                    "answer-name" to result.answer.name,
-                    "answer-type" to result.answer.type.value,
+                "get_answer", mapOf(
+                    "answer_name" to result.answer.name,
+                    "answer_type" to result.answer.type.value,
                 )
             )
             _answer.emit(result)

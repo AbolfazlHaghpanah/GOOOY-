@@ -61,7 +61,7 @@ fun OnBoardingLanguageSelectorScreen(
             animatedContentScope = animatedContentScope,
             onContinue = {
                 analyticsManager.sendEvent(
-                    name = "select-language",
+                    name = "select_language",
                     params = mapOf(
                         "language" to selectedLanguage.name
                     )
